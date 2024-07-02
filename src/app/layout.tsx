@@ -17,6 +17,7 @@ const ebGaramond = EB_Garamond({
 import 'react-loading-skeleton/dist/skeleton.css';
 import 'react-toastify/dist/ReactToastify.min.css';
 import './globals.css';
+import { ClientProvider } from '@/providers/client-provider';
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -42,6 +43,7 @@ export default function Root({ children }: { children: React.ReactNode }) {
     <html lang="en">
       <body className={`${jebrainsMono.variable} ${ebGaramond.variable}`}>
         {children}
+        <ClientProvider />
       </body>
     </html>
   );
