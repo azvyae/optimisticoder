@@ -2,32 +2,137 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --toastify-icon-color-info: #fff !important;
+    --toastify-icon-color-success: #fff !important;
+    --toastify-icon-color-warning: rgb(51 65 85) !important;
+    --toastify-icon-color-error: #fff !important;
+
+    --toastify-toast-width: fit !important;
+  }
+
+  ::-webkit-scrollbar {
+    @apply absolute w-2 h-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply rounded-full bg-[#bababa];
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-[#7c9870] rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-[#607557];
+  }
+
+  * {
+    @apply !scroll-m-32;
+  }
+
+  html,
+  body {
+    @apply !scroll-smooth font-body h-full overflow-visible w-full;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    word-spacing: 0.1em;
+    @apply tracking-tight;
+  }
+
+  address {
+    @apply not-italic;
+  }
+
+  dialog::backdrop {
+    @apply bg-dark/40;
+  }
+
+  ::-webkit-search-cancel-button {
+    background-image: url("data:image/svg+xml;utf8, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/></svg>");
+    @apply mt-[0.75px] cursor-pointer hover:bg-[#a3a1a1] hover:rounded-full size-4 appearance-none;
+  }
+
+  input[type='date']::-webkit-inner-spin-button,
+  input[type='date']::-webkit-calendar-picker-indicator {
+    @apply cursor-pointer;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@layer components {
+  .search-input::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    position: absolute;
+  }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  .embla {
+    overflow: hidden;
+  }
+
+  .embla__container {
+    display: flex;
+  }
+
+  .progress {
+    transition: all 500ms ease;
+    background: #93bb71;
+    animation: load 2s ease;
+  }
+
+  .disabled-scroll::-webkit-inner-spin-button,
+  .disabled-scroll::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .rotate {
+    animation: rotate 4s ease-in-out infinite;
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(90deg);
+    }
+    50% {
+      transform: rotate(180deg);
+    }
+    75% {
+      transform: rotate(270deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes load {
+    from {
+      width: 2%;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  @keyframes shine {
+    0% {
+      left: -50%;
+      opacity: 0;
+    }
+    100% {
+      left: 100%;
+      opacity: 1;
+    }
   }
 }
