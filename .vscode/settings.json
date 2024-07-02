@@ -1,0 +1,31 @@
+{
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "formatFiles.excludedFolders": [
+    "node_modules",
+    ".vscode",
+    ".git",
+    "dist",
+    ".chrome",
+    ".next"
+  ],
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+  "tailwindCSS.experimental.classRegex": [
+    "classList\\.\\w*\\(['\"`](.*)['\"`]\\)",
+    "\\wClasses\\s*?=\\s*?[`\"'](.*)['\"`]",
+    ".className\\s*?=\\s*?[`\"'](.*)[\"'`]",
+    "\\wClassName\\s*?=\\s*?[`\"'](.*)[\"'`]",
+    "cntl`([^`]*?)(?=cntl`|`)",
+    ":\\s*?[`]([^`]*).*?,"
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.preferences.preferTypeOnlyAutoImports": true,
+  "[yaml]": {
+    "editor.guides.indentation": true
+  },
+  "[json]": {
+    "editor.guides.indentation": true
+  },
+  "files.eol": "\n"
+}

@@ -1,26 +1,74 @@
 {
   "name": "optimisticoder",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "private": false,
+  "contributors": [
+    {
+      "name": "Azvya Erstevan I",
+      "email": "azvyae@gmail.com",
+      "url": "https://optimisticoder.com"
+    }
+  ],
   "scripts": {
-    "dev": "set NODE_OPTIONS=\"--max_old_space_size=2048\" && next dev --turbo",
-    "build": "next build",
+    "dev": "cross-env NODE_OPTIONS=\"--max_old_space_size=2048\" && next dev --turbo",
+    "build": "node ./scripts/prebuild.mjs && cross-env NODE_OPTIONS=\"--max_old_space_size=4096\" next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint --dir src --fix",
+    "test": "cypress run",
+    "ci": "cypress run --config video=false screenshot=false videoUploadOnPasses=false screenshotOnRunFailure=false --headless --browser electron",
+    "cypress": "cypress open",
+    "detect-circular": "npx tsx scripts/detect-circular-deps.ts"
   },
   "dependencies": {
+    "client-only": "^0.0.1",
+    "cntl": "^1.0.0",
+    "date-fns": "^3.6.0",
+    "embla-carousel": "^8.0.4",
+    "embla-carousel-autoplay": "^8.0.4",
+    "embla-carousel-react": "^8.0.4",
+    "encrypted-env": "^0.2.1",
+    "gray-matter": "^4.0.3",
+    "next": "14.2.4",
+    "next-nprogress-bar": "^2.3.12",
     "react": "^18",
+    "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18",
-    "next": "14.2.4"
+    "react-icons": "^5.2.1",
+    "react-loading-skeleton": "^3.4.0",
+    "react-toastify": "^10.0.5",
+    "remark": "^15.0.1",
+    "remark-html": "^16.0.1",
+    "server-only": "^0.0.1",
+    "sharp": "^0.33.3"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@tailwindcss/typography": "^0.5.13",
     "@types/node": "^20",
+    "@types/prop-types": "^15.7.12",
     "@types/react": "^18",
+    "@types/react-copy-to-clipboard": "^5.0.7",
     "@types/react-dom": "^18",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
+    "@typescript-eslint/eslint-plugin": "~7.10.0",
+    "@typescript-eslint/parser": "~7.10.0",
+    "autoprefixer": "10.4.19",
+    "copy-file": "^11.0.0",
+    "cross-env": "^7.0.3",
+    "cypress": "^13.9.0",
+    "dotenv": "^16.4.5",
+    "dpdm": "^3.14.0",
     "eslint": "^8",
-    "eslint-config-next": "14.2.4"
+    "eslint-config-love": "~48.0.0",
+    "eslint-config-next": "14.2.4",
+    "eslint-plugin-cypress": "^3.2.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.34.1",
+    "file-loader": "^6.2.0",
+    "postcss": "^8",
+    "prettier": "3.3.2",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^4",
+    "typescript-eslint": "^7.10.0"
   }
 }

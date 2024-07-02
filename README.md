@@ -1,8 +1,19 @@
 # Optimisticoder
 
-Welcome to [Optimisticoder](http://optimisticoder.com/), a personal blogging and portfolio website created by Azvya Erstevan, a software developer.
+<p align="center"><a href="https://optimisticoder.com" target="_blank"><img src="/.github/docs/github-preview.png" width="400" alt="Optimisticoder Logo"></a></p>
+<br>
+<div align="center">
+
+**Build, Tests, and Deployment Status**
+
+[![Build/Test](https://github.com/azvyae/optimisticoder/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/azvyae/optimisticoder/actions/workflows/build-and-test.yml) [![Production](https://github.com/azvyae/optimisticoder/actions/workflows/production-deployment.yml/badge.svg)](https://github.com/azvyae/optimisticoder/actions/workflows/production-deployment.yml)
+
+
+</div>
 
 ## About the Site
+
+Welcome to [Optimisticoder](http://optimisticoder.com/), a personal blogging and portfolio website created by Azvya Erstevan, but feel free to use this repo for your personal project with your own style! The app is licensed by Apache 2.0 License.
 
 Optimisticoder is designed to serve multiple purposes:
 
@@ -30,7 +41,6 @@ To get a local copy up and running follow these simple steps:
 
 - Node.js
 - pnpm or yarn
-- PostgreSQL/MySQL/Redis (depending on your configuration)
 
 ### Installation
 
@@ -53,7 +63,6 @@ To get a local copy up and running follow these simple steps:
     ```sh
     LINKEDIN_API_KEY=your_linkedin_api_key
     GOOGLE_ADSENSE_ID=your_google_adsense_id
-    DATABASE_URL=your_database_url
     
     ```
     
@@ -82,7 +91,7 @@ Contributions are what make the open-source community such an amazing place to b
 
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the Apache 2.0 License. See `LICENSE` for more information.
 
 ## Contact
 
