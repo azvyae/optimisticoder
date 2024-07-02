@@ -1,0 +1,35 @@
+name: Build/Test
+run-name: Build/Test
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+  workflow_call:
+    secrets:
+      ENV_KEY:
+        required: true
+
+jobs:
+  build-and-test:
+    name: Build and Test the Application
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Read .nvmrc
+        run: echo ::set-output name=NODE_VERSION::$(cat .nvmrc)
+        id: nvm
+      - name: Use Node.js ${{ steps.nvm.outputs.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ steps.nvm.outputs.NODE_VERSION }}
+      - name: Setup Project
+        shell: 'script -q -e -c "bash {0}"'
+        run: npm i -g pnpm typescript && ./install.sh -i --env local --env-key ${{ secrets.ENV_KEY }}
+      - name: Build, Start, Test
+        uses: cypress-io/github-action@v6
+        with:
+          build: pnpm build
+          start: pnpm start
+          command: pnpm run ci
