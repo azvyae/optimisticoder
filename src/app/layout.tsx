@@ -1,7 +1,6 @@
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
 import { EB_Garamond, JetBrains_Mono } from 'next/font/google';
-import React from 'react';
 
 const jebrainsMono = JetBrains_Mono({
   weight: ['300', '400', '500', '700', '800'],
