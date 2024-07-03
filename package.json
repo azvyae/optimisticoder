@@ -20,6 +20,7 @@
     "detect-circular": "npx tsx scripts/detect-circular-deps.ts"
   },
   "dependencies": {
+    "@vercel/speed-insights": "^1.0.12",
     "client-only": "^0.0.1",
     "cntl": "^1.0.0",
     "date-fns": "^3.6.0",
