@@ -14,6 +14,7 @@ const ebGaramond = EB_Garamond({
   variable: '--font-eb-garamond',
 });
 
+import { ClientProvider } from '@/providers/client-provider';
 import 'react-loading-skeleton/dist/skeleton.css';
 import 'react-toastify/dist/ReactToastify.min.css';
 import './globals.css';
@@ -30,10 +31,12 @@ export const metadata: Metadata = {
     "Welcome to Optimisticoder, it's your code, be optimist! Find new insights, tips, or other case studies related to programming and tech here.",
   keywords: 'blog, portfolio, programming, code, azvya, erstevan',
   openGraph: {
-    images: [
-      '/img/opengraph/optimisticoder-bright.jpg',
-      '/img/opengraph/optimisticoder-dark.jpg',
-    ],
+    title: "It's your own code | Optimisticoder",
+    url: 'https:optimisticoder.com',
+    description:
+      "Welcome to Optimisticoder, it's your code, be optimist! Find new insights, tips, or other case studies related to programming and tech here.",
+    siteName: 'Optimisticoder',
+    images: ['/img/opengraph/optimisticoder-dark.jpg'],
   },
 };
 
@@ -42,6 +45,7 @@ export default function Root({ children }: { children: React.ReactNode }) {
     <html lang="en">
       <body className={`${jebrainsMono.variable} ${ebGaramond.variable}`}>
         {children}
+        <ClientProvider />
       </body>
     </html>
   );
