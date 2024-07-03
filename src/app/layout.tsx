@@ -1,7 +1,7 @@
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';
 import { EB_Garamond, JetBrains_Mono } from 'next/font/google';
-import React from 'react';
 
 const jebrainsMono = JetBrains_Mono({
   weight: ['300', '400', '500', '700', '800'],
@@ -47,6 +47,7 @@ export default function Root({ children }: { children: React.ReactNode }) {
       <body className={`${jebrainsMono.variable} ${ebGaramond.variable}`}>
         {children}
         <ClientProvider />
+        <SpeedInsights />
         <Analytics />
       </body>
     </html>
