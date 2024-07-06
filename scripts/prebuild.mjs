@@ -5,7 +5,7 @@ import fs from 'fs-extra';
 async function prepareStoriesFolder() {
   const STORIES_KEY = process.env.STORIES_KEY;
   const gitUrl = `https://oauth2:${STORIES_KEY}@github.com/azvyae/optimisticoder-stories.git`;
-  if (!fs.pathExistsSync('./stories')) {
+  if (fs.readdirSync('./stories').length === 0) {
     try {
       console.info("Stories folder doesn't exist, cloning...");
       execSync(`git clone ${gitUrl} stories`);
