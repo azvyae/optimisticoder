@@ -6,12 +6,12 @@ async function prepareStoriesFolder() {
   const STORIES_KEY = process.env.STORIES_KEY;
   const gitUrl = `https://oauth2:${STORIES_KEY}@github.com/azvyae/optimisticoder-stories.git`;
   if (
-    !fs.pathExistsSync('./stories') ||
-    fs.readdirSync('./stories').length === 0
+    !fs.pathExistsSync('./_stories') ||
+    fs.readdirSync('./_stories').length === 0
   ) {
     try {
       console.info("Stories folder doesn't exist, cloning...");
-      execSync(`git clone ${gitUrl} stories`);
+      execSync(`git clone ${gitUrl} _stories`);
       console.info('Successfuly cloning stories folder.');
     } catch (error) {
       console.error('Failed to clone the repository.');
@@ -21,7 +21,7 @@ async function prepareStoriesFolder() {
   try {
     console.info('Stories folder already exist, syncing...');
     execSync(`
-      cd stories && 
+      cd _stories && 
       git fetch origin && 
       git reset --hard origin/main && 
       git pull
