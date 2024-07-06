@@ -3,12 +3,12 @@ import 'dotenv/config';
 import fs from 'fs-extra';
 
 async function prepareStoriesFolder() {
+  const STORIES_KEY = process.env.STORIES_KEY;
+  const gitUrl = `https://oauth2:${STORIES_KEY}@github.com/azvyae/optimisticoder-stories.git`;
   if (!fs.pathExistsSync('./stories')) {
     try {
       console.info("Stories folder doesn't exist, cloning...");
-      execSync(
-        'git clone git@github.com:azvyae/optimisticoder-stories.git stories',
-      );
+      execSync(`git clone ${gitUrl} stories`);
       console.info('Successfuly cloning stories folder.');
     } catch (error) {
       console.error('Failed to clone the repository.');

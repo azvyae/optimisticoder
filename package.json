@@ -17,7 +17,9 @@
     "test": "cypress run",
     "ci": "cypress run --config video=false screenshot=false videoUploadOnPasses=false screenshotOnRunFailure=false --headless --browser electron",
     "cypress": "cypress open",
-    "detect-circular": "npx tsx scripts/detect-circular-deps.ts"
+    "detect-circular": "npx tsx scripts/detect-circular-deps.ts",
+    "encrypt-all": "env-encrypt local && env-encrypt production",
+    "decrypt-all": "env-decrypt local && env-decrypt production"
   },
   "dependencies": {
     "@vercel/analytics": "^1.3.1",
