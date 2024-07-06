@@ -37,7 +37,6 @@ async function main() {
   const APP_ENV = process.env.NEXT_PUBLIC_APP_ENV ?? 'local';
   try {
     await prepareStoriesFolder();
-    console.info(fs.readdirSync('./stories'));
     if (APP_ENV === 'local') {
       return;
     }
