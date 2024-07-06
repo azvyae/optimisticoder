@@ -16,6 +16,7 @@ async function prepareStoriesFolder() {
     } catch (error) {
       console.error('Failed to clone the repository.');
     }
+
     return;
   }
   try {
@@ -30,6 +31,7 @@ async function prepareStoriesFolder() {
   } catch (error) {
     console.error('Failed to sync the repository.');
   }
+
   return;
 }
 
