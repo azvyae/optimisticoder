@@ -1,0 +1,97 @@
+const navbarLinks = [
+  {
+    name: 'optimisticoder logo',
+    href: '/',
+  },
+  {
+    name: 'Home',
+    href: '/',
+  },
+  {
+    name: 'Stories',
+    href: '/stories',
+  },
+  {
+    name: 'Portfolio',
+    href: '/portfolio',
+  },
+  {
+    name: 'Contact',
+    href: '/contact',
+  },
+];
+
+describe('Base navbar', () => {
+  beforeEach(() => {
+    cy.visit('/');
+  });
+
+  context('Main navbar', () => {
+    it('shows navbar and logo', () => {
+      cy.getItem('main-nav').find('img');
+    });
+
+    it('still shows navbar even scrolled to bottom', () => {
+      cy.window().scrollTo('bottom');
+      cy.getItem('main-nav').find('div').should('be.visible');
+    });
+  });
+
+  context(
+    'Dekstop navbar',
+    { viewportWidth: 1280, viewportHeight: 720 },
+    () => {
+      it("shouldn't show hamburger", () => {
+        cy.getItem('main-nav')
+          .find('button[data-item="hamburger"]')
+          .should('not.be.visible');
+      });
+
+      it("shouldn't show mobile links", () => {
+        cy.getItem('mobile-nav').should('not.exist');
+      });
+
+      it('navigates desktop links', () => {
+        cy.getItem('main-nav')
+          .getItem('desktop-nav')
+          .find('a')
+          .each(($a, index) => {
+            cy.wrap($a).contains(navbarLinks[index + 1].name);
+            cy.wrap($a).should(
+              'have.attr',
+              'href',
+              navbarLinks[index + 1].href,
+            );
+          });
+      });
+    },
+  );
+
+  context('Mobile navbar', { viewportWidth: 414, viewportHeight: 896 }, () => {
+    it("shouldn't show hamburger", () => {
+      cy.getItem('main-nav')
+        .find('button[data-item="hamburger"]')
+        .should('be.visible');
+    });
+
+    it("shouldn't show desktop links", () => {
+      cy.getItem('desktop-nav').should('not.be.visible');
+    });
+
+    it('can use sidebar toggler', () => {
+      cy.getItem('mobile-nav').should('not.exist');
+      cy.getItem('main-nav').find('button[data-item="hamburger"]').click();
+      cy.getItem('mobile-nav').find('a').should('be.visible');
+    });
+
+    it('navigate mobile links', () => {
+      cy.getItem('main-nav').find('button[data-item="hamburger"]').click();
+      cy.getItem('mobile-nav')
+        .find('a')
+        .each(($a, index) => {
+          cy.wrap($a).contains(navbarLinks[index + 1].name);
+          cy.wrap($a).should('have.attr', 'href', navbarLinks[index + 1].href);
+        });
+    });
+  });
+});
