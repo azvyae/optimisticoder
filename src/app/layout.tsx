@@ -15,6 +15,7 @@ const ebGaramond = EB_Garamond({
   variable: '--font-eb-garamond',
 });
 
+import { Navbar } from '@/components/navigation/navbar';
 import { ClientProvider } from '@/providers/client-provider';
 import 'react-loading-skeleton/dist/skeleton.css';
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -45,6 +46,8 @@ export default function Root({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className={`${jebrainsMono.variable} ${ebGaramond.variable}`}>
+        <Navbar />
+
         {children}
         <ClientProvider />
         <Analytics />
