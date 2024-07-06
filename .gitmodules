@@ -1,0 +1,3 @@
+[submodule "stories"]
+	path = stories
+	url = git@github.com:azvyae/optimisticoder-stories.git
