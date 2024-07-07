@@ -4,7 +4,8 @@ import fs from 'fs-extra';
 
 async function prepareStoriesFolder() {
   const STORIES_KEY = process.env.STORIES_KEY;
-  const gitUrl = `https://oauth2:${STORIES_KEY}@github.com/azvyae/optimisticoder-stories.git`;
+  const STORIES_REPO = process.env.STORIES_REPO;
+  const gitUrl = `https://oauth2:${STORIES_KEY}@github.com/${STORIES_REPO}.git`;
   if (
     !fs.pathExistsSync('./_stories') ||
     fs.readdirSync('./_stories').length === 0
