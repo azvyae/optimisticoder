@@ -24,6 +24,19 @@ const generatedSitemapFilePath = path.join(
   'generated-sitemap.json',
 );
 
+async function linkAssets() {
+  if (!fs.pathExistsSync(`./public/assets`)) {
+    try {
+      fs.symlinkSync(path.join(process.cwd(), storiesDir), './public/assets');
+      console.info('Successfuly link stories folder.');
+    } catch (error) {
+      console.error((error as Error).message);
+    }
+  } else {
+    console.info('No link necessary to the stories folder.');
+  }
+}
+
 async function prepareStoriesFolder() {
   const STORIES_KEY = process.env.STORIES_KEY;
   const STORIES_REPO = process.env.STORIES_REPO;
@@ -151,6 +164,7 @@ async function main() {
   try {
     await prepareStoriesFolder();
     await indexFiles();
+    await linkAssets();
     await generateSitemapXml();
     if (APP_ENV === 'local') {
       return;
