@@ -23,7 +23,8 @@ function NavigationLinks() {
         href={link.href ?? '/'}
         title={`${link.name} page`}
       >
-        <div className="h-full w-0 transition-[width] max-md:group-hover:w-full border-b-4 border-warning/30 bg-[#d8dfd6] absolute top-0 left-0"></div>
+        <div className="h-full w-0 transition-[width] max-md:group-hover:w-full bg-[#d8dfd6] absolute top-0 left-0"></div>
+        <div className="h-full w-0 transition-[width] duration-700 max-md:group-hover:w-3/4 border-b-4 absolute top-0 left-0"></div>
 
         <div className="flex relative items-center gap-2">
           {Icon ? <Icon size={18} /> : <></>}

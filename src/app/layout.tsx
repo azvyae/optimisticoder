@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     description:
       "Welcome to Optimisticoder, it's your code, be optimist! Find new insights, tips, or other case studies related to programming and tech here.",
     siteName: 'Optimisticoder',
-    images: ['/img/opengraph/optimisticoder-dark.jpg'],
+    images: ['/static/opengraph/optimisticoder-dark.jpg'],
   },
 };
 

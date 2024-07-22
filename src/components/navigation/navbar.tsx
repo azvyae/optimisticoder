@@ -1,5 +1,5 @@
-import logoFull from '@public/img/logo/optimisticoder-logo-full.png';
-import logoShort from '@public/img/logo/optimisticoder-logo-short.png';
+import logoFull from '@public/static/logo/optimisticoder-logo-full.png';
+import logoShort from '@public/static/logo/optimisticoder-logo-short.png';
 import Image from 'next/image';
 import Link from 'next/link';
 import {

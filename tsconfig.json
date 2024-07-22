@@ -46,7 +46,7 @@
     ".next/types/**/*.ts",
     "functions/*.ts",
     "tests/support/inViewport.js",
-    "eslint.config.js"
+    "eslint.config.js",
   ],
   "exclude": [
     "node_modules"

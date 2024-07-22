@@ -37,6 +37,16 @@ module.exports = {
       },
 
       typography: ({ theme }) => ({
+        DEFAULT: {
+          css: {
+            pre: {
+              color: 'black',
+              background: 'transparent',
+              padding: 0,
+              margin: 0,
+            },
+          },
+        },
         optimisticoder: {
           css: {
             '--tw-prose-body': theme('colors.dark'),
@@ -52,7 +62,7 @@ module.exports = {
             '--tw-prose-captions': theme('colors.primary'),
             '--tw-prose-code': theme('colors.dark'),
             '--tw-prose-pre-code': theme('colors.dark'),
-            '--tw-prose-pre-bg': theme('colors.secondary'),
+            '--tw-prose-pre-bg': '#324d39',
             '--tw-prose-th-borders': theme('colors.dark/30'),
             '--tw-prose-td-borders': theme('colors.dark/30'),
             '--tw-prose-invert-body': theme('colors.light'),
@@ -71,6 +81,12 @@ module.exports = {
             '--tw-prose-invert-pre-bg': theme('colors.dark'),
             '--tw-prose-invert-th-borders': theme('colors.dark/10'),
             '--tw-prose-invert-td-borders': theme('colors.dark/10'),
+            pre: {
+              color: 'black',
+              background: 'transparent',
+              padding: 0,
+              margin: 0,
+            },
           },
         },
       }),
