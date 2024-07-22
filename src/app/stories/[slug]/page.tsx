@@ -12,13 +12,21 @@ import readingTime from 'reading-time';
 async function getStoryBySlug(slug: string) {
   try {
     const indexStories: StoriesIndexEntry[] = JSON.parse(
-      readFileSync(path.join(STORIES_DIR, 'index-stories.json')).toString(),
+      readFileSync(
+        path.join(process.cwd(), STORIES_DIR, 'index-stories.json'),
+      ).toString(),
     );
     const expression = jsonata(`$[slug='${slug}']`);
     const result: StoriesIndexEntry = await expression.evaluate(indexStories);
     const { content: markdown } = matter(
       readFileSync(
-        path.join(STORIES_DIR, result.category, result.slug, 'page.md'),
+        path.join(
+          process.cwd(),
+          STORIES_DIR,
+          result.category,
+          result.slug,
+          'page.md',
+        ),
         'utf8',
       ),
     );
