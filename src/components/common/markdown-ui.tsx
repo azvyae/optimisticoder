@@ -23,8 +23,14 @@ function copyToClipboard(text: string) {
 function MarkdownUI({ markdown }: MarkdownUIProps) {
   return (
     <ReactMarkdown
-      className="stories-body max-w-none prose-headings:break-words prose-h1:text-4xl prose-h2:text-3xl prose-h3:text-2xl prose-h4:text-2xl prose-h5:text-2xl prose-h6:text-2xl mx-auto prose prose-table:font-body prose-table:border prose-td:px-2 prose-td:border prose-th:text-light prose-th:py-1 prose-th:border prose-th:border-dark prose-th:bg-primary prose-pre:text-light prose-xl prose-optimisticoder font-article"
+      className="stories-body max-w-none prose-headings:break-words mx-auto prose prose-table:font-body prose-table:border prose-td:px-2 prose-td:border prose-th:text-light prose-th:py-1 prose-th:border prose-th:border-dark prose-th:bg-primary prose-pre:text-light prose-lg sm:prose-xl prose-optimisticoder font-article prose-h2:sm:text-3xl prose-h3:sm:text-2xl prose-h4:sm:text-xl prose-h2:text-2xl prose-h3:text-xl prose-h4:text-lg prose-h4:font-bold"
       components={{
+        h1: ({ ...props }) => <h2 {...props} />,
+        h2: ({ ...props }) => <h3 {...props} />,
+        h3: ({ ...props }) => <h4 {...props} />,
+        h4: ({ ...props }) => <h4 {...props} />,
+        h5: ({ ...props }) => <h4 {...props} />,
+        h6: ({ ...props }) => <h4 {...props} />,
         img({ alt, src, className, ...props }) {
           return (
             <figure>
@@ -34,10 +40,11 @@ function MarkdownUI({ markdown }: MarkdownUIProps) {
                 {...props}
                 src={src ?? ''}
                 width={1280}
+                loading="lazy"
                 height={1280}
                 alt={alt ?? ''}
               />
-              <figcaption className="mt-1 font-body text-sm text-[#7d837f] text-center">
+              <figcaption className="mt-1 font-body text-xs sm:text-sm text-[#7d837f] text-center">
                 <em>{alt}</em>
               </figcaption>
             </figure>

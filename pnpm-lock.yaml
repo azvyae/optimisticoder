@@ -183,6 +183,9 @@ importers:
       typescript-eslint:
         specifier: ^7.10.0
         version: 7.14.1(eslint@8.57.0)(typescript@5.4.5)
+      user-agent-data-types:
+        specifier: ^0.4.2
+        version: 0.4.2
 
 packages:
 
@@ -3378,6 +3381,9 @@ packages:
 
   url-parse@1.5.10:
     resolution: {integrity: sha512-WypcfiRhfeUP9vvF0j6rw0J3hrWrw6iZv3+22h6iRMJ/8z1Tj6XfLP4DsUix5MhMPnXpiHDoKyoZ/bdCkwBCiQ==}
+
+  user-agent-data-types@0.4.2:
+    resolution: {integrity: sha512-jXep3kO/dGNmDOkbDa8ccp4QArgxR4I76m3QVcJ1aOF0B9toc+YtSXtX5gLdDTZXyWlpQYQrABr6L1L2GZOghw==}
 
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
@@ -7292,6 +7298,8 @@ snapshots:
     dependencies:
       querystringify: 2.2.0
       requires-port: 1.0.0
+
+  user-agent-data-types@0.4.2: {}
 
   util-deprecate@1.0.2: {}
 
