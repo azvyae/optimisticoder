@@ -45,7 +45,9 @@ export const metadata: Metadata = {
 export default function Root({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${jebrainsMono.variable} ${ebGaramond.variable}`}>
+      <body
+        className={`${jebrainsMono.variable} ${ebGaramond.variable} bg-light dark:bg-bgdark`}
+      >
         <Navbar />
 
         {children}

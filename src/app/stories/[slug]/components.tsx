@@ -24,7 +24,7 @@ function ShareButtons({ title, link }: ShareButtonsProps) {
     <div className="text-[#626262] flex gap-4 sm:gap-2">
       <button
         title={`Share "${title}"`}
-        className="font-bold hover:text-[#000]"
+        className="font-bold hover:text-primary transition-colors"
         type="button"
         onClick={handleShare}
       >
@@ -41,7 +41,7 @@ interface WriterDisplayProps {
 
 function WriterDisplay({ date, readTime }: WriterDisplayProps) {
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-4 dark:brightness-125">
       <Link href={'/contact'} title="Contact Azvya Erstevan">
         <Image
           src={avatar}

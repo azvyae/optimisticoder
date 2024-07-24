@@ -44,7 +44,7 @@ function MarkdownUI({ markdown }: MarkdownUIProps) {
                 height={1280}
                 alt={alt ?? ''}
               />
-              <figcaption className="mt-1 font-body text-xs sm:text-sm text-[#7d837f] text-center">
+              <figcaption className="mt-1 font-body text-xs sm:text-sm text-[#7d837f] dark:brightness-125 text-center">
                 <em>{alt}</em>
               </figcaption>
             </figure>

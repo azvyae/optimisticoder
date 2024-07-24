@@ -13,8 +13,13 @@ interface BreadcrumbsProps {
 
 function Breadcrumbs({ links }: BreadcrumbsProps) {
   return (
-    <div className="flex gap-3 items-start">
-      <Image src={Stars} draggable={false} alt={'Stars symbol'} />
+    <div className="flex gap-3 items-start dark:brightness-125">
+      <Image
+        src={Stars}
+        draggable={false}
+        alt={'Stars symbol'}
+        className="dark:invert "
+      />
       <div className="flex flex-wrap gap-x-3 text-sm sm:text-base md:gap-x-4 !leading-4 gap-y-2">
         {links.map((item, i, arr) => {
           const link = (

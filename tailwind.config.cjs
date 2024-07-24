@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: ['selector'],
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -19,6 +20,7 @@ module.exports = {
       danger: '#C51605',
       light: '#FFFFFF',
       dark: '#19231B',
+      bgdark: '#242424',
     },
     extend: {
       transformOrigin: {
