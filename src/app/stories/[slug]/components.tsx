@@ -15,7 +15,7 @@ function ShareButtons({ title, link }: ShareButtonsProps) {
   function handleShare() {
     return navigator.share({
       title: `Share ${title}`,
-      text: `${title} written by Azvya Erstevan | Optimisticoder ${link}`,
+      text: `${title} written by Azvya Erstevan | Optimisticoder`,
       url: link,
     });
   }
