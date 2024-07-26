@@ -65,7 +65,7 @@ describe('Base navbar', () => {
           });
       });
 
-      it.only('handles dark mode on desktop', () => {
+      it('handles dark mode on desktop', () => {
         cy.getItem('desktop-dark-mode-toggler').first().click();
         cy.get('html').should('have.class', 'dark');
         cy.getItem('desktop-dark-mode-toggler').first().click();
@@ -101,7 +101,7 @@ describe('Base navbar', () => {
         });
     });
 
-    it.only('handles dark mode on mobile', () => {
+    it('handles dark mode on mobile', () => {
       cy.getItem('mobile-dark-mode-toggler').first().click();
       cy.get('html').should('have.class', 'dark');
       cy.getItem('mobile-dark-mode-toggler').first().click();
