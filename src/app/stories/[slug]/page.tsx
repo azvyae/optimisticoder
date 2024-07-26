@@ -2,6 +2,7 @@ export const revalidate = 86400;
 export const dynamic = 'force-static';
 import { ShareButtons, WriterDisplay } from '@/app/stories/[slug]/components';
 import { Breadcrumbs, MarkdownUI, StoryTitle } from '@/components/common';
+import { StoryCard } from '@/components/common/story-card';
 import { APP_URL, STORIES_DIR } from '@/config/common';
 import type { StoriesIndexEntry } from '@/types/common';
 import { readFileSync } from 'fs';
@@ -10,7 +11,6 @@ import jsonata from 'jsonata';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import path from 'path';
-import readingTime from 'reading-time';
 
 async function getStoryBySlug(slug: string) {
   try {
@@ -39,7 +39,6 @@ async function getStoryBySlug(slug: string) {
         .replace(/!\[([^\]]*)\]\((?!\/assets\/)([^)]+)\)/g, (_, p1, p2) => {
           return `![${p1}](/assets/${result.category}/${result.slug}/${p2})`;
         }),
-      readTime: readingTime(markdown.toString()),
       ...result,
     };
   } catch (error) {
@@ -47,8 +46,24 @@ async function getStoryBySlug(slug: string) {
   }
 }
 
+async function listRandomStories() {
+  try {
+    const indexStories: StoriesIndexEntry[] = JSON.parse(
+      readFileSync(
+        path.join(process.cwd(), STORIES_DIR, 'index-stories.json'),
+      ).toString(),
+    );
+    const expression = jsonata(`$shuffle($[])`);
+    const result: StoriesIndexEntry[] = await expression.evaluate(indexStories);
+    return result.slice(0, 4);
+  } catch (error) {
+    return [];
+  }
+}
+
 async function Page({ params: { slug } }: { params: { slug: string } }) {
   const story = await getStoryBySlug(slug);
+  const shuffledStories = await listRandomStories();
   const breadcrumbs = [
     {
       text: 'Stories',
@@ -64,7 +79,7 @@ async function Page({ params: { slug } }: { params: { slug: string } }) {
     },
   ];
   return (
-    <main className="flex gap-16 min-h-screen h-[1500px] mt-[72px] flex-col items-center justify-between px-4 sm:px-24">
+    <main className="flex gap-16 min-h-screen mt-[72px] flex-col items-center justify-between px-4 sm:px-24 pb-4">
       <article className="md:max-w-screen-half w-full">
         <div className="grid gap-6 my-6">
           <Breadcrumbs links={breadcrumbs} />
@@ -72,7 +87,7 @@ async function Page({ params: { slug } }: { params: { slug: string } }) {
           <div className="flex gap-4 sm:items-center justify-between">
             <WriterDisplay
               date={new Date(story.date)}
-              readTime={story.readTime.text}
+              readTime={story.readTime}
             />
             <ShareButtons
               title={story.title}
@@ -98,7 +113,24 @@ async function Page({ params: { slug } }: { params: { slug: string } }) {
         </div>
       </article>
       <section className="md:max-w-screen-half w-full">
-        <h5 className="text-left text-2xl font-bold">Baca cerita lainnya</h5>
+        <h5 className="text-left text-2xl font-bold mb-6">
+          Baca cerita lainnya
+        </h5>
+        <div className="flex gap-4 flex-wrap justify-between mb-6">
+          {shuffledStories.map((index, k) => (
+            <StoryCard story={index} className="sm:basis-[48%]" key={k} />
+          ))}
+        </div>
+        <Link
+          className="group w-fit mx-auto block hover:text-primary dark:brightness-125 break-all transition-colors"
+          href="/stories"
+          title="See all stories"
+        >
+          <span className="flex relative items-center break-all gap-2">
+            See all stories
+            <span className="border-b group-hover:w-full w-0 transition-[width] absolute bottom-0"></span>
+          </span>
+        </Link>
       </section>
     </main>
   );

@@ -5,6 +5,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import type { MetadataRoute } from 'next';
 import type { CategoryIndexEntry, StoriesIndexEntry } from '@/types/common';
+import readingTime from 'reading-time';
 
 const storiesDir = '_stories';
 const storiesIndexerPath = path.join(
@@ -120,6 +121,7 @@ async function indexFiles() {
         excerpt: data.excerpt,
         cover: data.cover,
         date: data.date,
+        readTime: readingTime(content).text,
       });
       if (!categoriesIndex.includes(category)) {
         categoriesIndex.push(category);

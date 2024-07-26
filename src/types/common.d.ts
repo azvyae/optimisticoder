@@ -18,6 +18,7 @@ interface StoriesMetadata {
 interface StoriesIndexEntry extends StoriesMetadata {
   slug: string;
   category: string;
+  readTime: string;
 }
 
 type CategoryIndexEntry = string[];
