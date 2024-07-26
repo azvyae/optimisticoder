@@ -23,7 +23,7 @@ function copyToClipboard(text: string) {
 function MarkdownUI({ markdown }: MarkdownUIProps) {
   return (
     <ReactMarkdown
-      className="stories-body max-w-none prose-headings:break-words mx-auto prose prose-table:font-body prose-table:border prose-td:px-2 prose-td:border prose-th:text-light prose-th:py-1 prose-th:border prose-th:border-dark prose-th:bg-primary prose-pre:text-light prose-lg sm:prose-xl prose-optimisticoder font-article prose-h2:sm:text-3xl prose-h3:sm:text-2xl prose-h4:sm:text-xl prose-h2:text-2xl prose-h3:text-xl prose-h4:text-lg prose-h4:font-bold"
+      className="stories-body dark:prose-invert max-w-none prose-headings:break-words mx-auto prose prose-table:font-body prose-table:border prose-td:px-2 prose-td:border prose-th:text-light prose-th:py-1 prose-th:border prose-th:border-dark  prose-th:dark:border-light prose-th:bg-primary prose-pre:text-light prose-pre:px-0 prose-lg sm:prose-xl prose-optimisticoder font-article prose-h2:sm:text-3xl prose-h3:sm:text-2xl prose-h4:sm:text-xl prose-h2:text-2xl prose-h3:text-xl prose-h4:text-lg prose-h4:font-bold hover:prose-a:brightness-125"
       components={{
         h1: ({ ...props }) => <h2 {...props} />,
         h2: ({ ...props }) => <h3 {...props} />,

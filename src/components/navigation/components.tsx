@@ -16,7 +16,7 @@ import {
 const styles = {
   active: `!text-primary dark:brightness-125`,
   base: `w-full whitespace-nowrap font-medium transition-colors rounded group text-dark dark:text-light`,
-  activeDarkToggler: `scale-100 rotate-0`,
+  activeDarkToggler: `scale-100 group-hover:text-[#7e7e7e] rotate-0`,
   inactiveDarkToggler: `scale-0 rotate-90`,
 };
 
@@ -44,7 +44,10 @@ function NavigationLinks() {
           </NavLink>
         );
       })}
-      <DarkModeSelector className="max-md:hidden" />
+      <DarkModeSelector
+        dataItem="desktop-dark-mode-toggler"
+        className="max-md:hidden"
+      />
     </>
   );
 }
@@ -68,7 +71,10 @@ function NavigationMobile() {
   }, [pathname]);
   return (
     <div className="flex items-center gap-8 relative">
-      <DarkModeSelector className="md:hidden" />
+      <DarkModeSelector
+        dataItem="mobile-dark-mode-toggler"
+        className="md:hidden"
+      />
       <button
         className="block md:hidden relative"
         title="Toggle navbar"
@@ -104,7 +110,13 @@ function NavigationMobile() {
 
 type Theme = 'dark' | 'light' | undefined;
 
-function DarkModeSelector({ className }: { className?: string }) {
+function DarkModeSelector({
+  className,
+  dataItem,
+}: {
+  className?: string;
+  dataItem: string;
+}) {
   const [theme, setTheme] = useState<Theme>();
   useEffect(() => {
     switch (theme) {
@@ -144,18 +156,19 @@ function DarkModeSelector({ className }: { className?: string }) {
   return (
     <button
       onClick={toggle}
-      className={`relative md:px-6 py-4 md:py-3 flex items-center justify-center transition-colors text-dark dark:text-light dark:max-md:text-[#868686] ${className}`}
+      data-item={dataItem}
+      className={`relative md:px-6 aspect-square py-4 md:py-3 flex items-center justify-center transition-colors text-dark group dark:text-light dark:max-md:text-[#868686] ${className}`}
     >
       <MdBrightnessAuto
-        className={`absolute transition-transform duration-200 ${!theme ? styles.activeDarkToggler : styles.inactiveDarkToggler}`}
+        className={`absolute transition-[transform,color] duration-200 ${!theme ? styles.activeDarkToggler : styles.inactiveDarkToggler}`}
         size={24}
       />
       <MdSunny
-        className={`absolute transition-transform duration-200 ${theme === 'light' ? styles.activeDarkToggler : styles.inactiveDarkToggler}`}
+        className={`absolute transition-[transform,color] duration-200 ${theme === 'light' ? styles.activeDarkToggler : styles.inactiveDarkToggler}`}
         size={24}
       />
       <MdNightlight
-        className={`absolute transition-transform duration-200 ${theme === 'dark' ? styles.activeDarkToggler : styles.inactiveDarkToggler}`}
+        className={`absolute transition-[transform,color] duration-200 ${theme === 'dark' ? styles.activeDarkToggler : styles.inactiveDarkToggler}`}
         size={24}
       />
     </button>

@@ -79,7 +79,7 @@ async function Page({ params: { slug } }: { params: { slug: string } }) {
             />
           </div>
         </div>
-        <hr className="mb-8 text-[#19231B]/15" />
+        <hr className="mb-8 text-[#19231B]/15 dark:text-[#a3e3b0]/15" />
         <MarkdownUI markdown={story.content} />
       </article>
     </main>
