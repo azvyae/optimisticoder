@@ -7,6 +7,7 @@ import type { StoriesIndexEntry } from '@/types/common';
 import { readFileSync } from 'fs';
 import matter from 'gray-matter';
 import jsonata from 'jsonata';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import path from 'path';
 import readingTime from 'reading-time';
@@ -63,7 +64,7 @@ async function Page({ params: { slug } }: { params: { slug: string } }) {
     },
   ];
   return (
-    <main className="flex min-h-screen h-[1500px] mt-[72px] flex-col items-center justify-between px-4 sm:px-24">
+    <main className="flex gap-16 min-h-screen h-[1500px] mt-[72px] flex-col items-center justify-between px-4 sm:px-24">
       <article className="md:max-w-screen-half w-full">
         <div className="grid gap-6 my-6">
           <Breadcrumbs links={breadcrumbs} />
@@ -81,7 +82,24 @@ async function Page({ params: { slug } }: { params: { slug: string } }) {
         </div>
         <hr className="mb-8 text-[#19231B]/15 dark:text-[#a3e3b0]/15" />
         <MarkdownUI markdown={story.content} />
+        <hr className="my-3 text-[#19231B]/15 dark:text-[#a3e3b0]/15" />
+        <div className="flex gap-4 flex-wrap">
+          <span>Keywords:</span>
+          {story.keywords.map((keyword, i) => (
+            <Link
+              key={i}
+              className="bg-[#D9D9D9] hover:bg-[#bbbbbb] hover:dark:bg-[#6b6b6b] dark:bg-[#4d4d4d] transition-colors rounded-lg px-2"
+              href={`/stories?tag=${keyword}`}
+              title={`See stories related with ${keyword}`}
+            >
+              {keyword}
+            </Link>
+          ))}
+        </div>
       </article>
+      <section className="md:max-w-screen-half w-full">
+        <h5 className="text-left text-2xl font-bold">Baca cerita lainnya</h5>
+      </section>
     </main>
   );
 }

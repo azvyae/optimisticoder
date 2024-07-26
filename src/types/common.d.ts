@@ -12,7 +12,7 @@ interface StoriesMetadata {
   excerpt: string;
   cover: string;
   date: string;
-  keywords: string;
+  keywords: string[];
 }
 
 interface StoriesIndexEntry extends StoriesMetadata {

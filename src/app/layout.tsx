@@ -46,7 +46,7 @@ export default function Root({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body
-        className={`${jebrainsMono.variable} ${ebGaramond.variable} bg-light dark:bg-bgdark`}
+        className={`${jebrainsMono.variable} ${ebGaramond.variable} transition-colors duration-500 bg-light dark:bg-bgdark`}
       >
         <Navbar />
 
