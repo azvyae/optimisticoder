@@ -89,7 +89,7 @@ async function Page({ params: { slug } }: { params: { slug: string } }) {
             <Link
               key={i}
               className="bg-[#D9D9D9] hover:bg-[#bbbbbb] hover:dark:bg-[#6b6b6b] dark:bg-[#4d4d4d] transition-colors rounded-lg px-2"
-              href={`/stories?tag=${keyword}`}
+              href={`/stories?related=${keyword}`}
               title={`See stories related with ${keyword}`}
             >
               {keyword}
