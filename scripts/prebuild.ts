@@ -76,7 +76,7 @@ async function prepareStoriesFolder() {
         'Environment is not for production, checked in to test branch instead.',
       );
     }
-    execSync(`git pull`);
+    simpleGit(storiesDir).pull();
     console.info('Successfuly synced stories folder.');
   } catch (error) {
     console.error('Failed to sync the repository.');
