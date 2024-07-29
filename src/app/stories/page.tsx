@@ -5,9 +5,7 @@ async function readFiles() {
 }
 
 async function readSomeFile() {
-  const file = readFileSync(
-    './_stories/development/hello-world-everybody/page.md',
-  );
+  const file = readFileSync('./_stories/index-stories.json');
   return {
     file: file.toString(),
     readTime: readingTime(file.toString()),
