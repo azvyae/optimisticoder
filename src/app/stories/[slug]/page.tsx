@@ -8,11 +8,17 @@ import type { StoriesIndexEntry } from '@/types/common';
 import { readFileSync } from 'fs';
 import matter from 'gray-matter';
 import jsonata from 'jsonata';
+import type { Metadata, ResolvingMetadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import path from 'path';
+import { cache } from 'react';
 
-async function getStoryBySlug(slug: string) {
+type Props = {
+  params: { slug: string };
+};
+
+const getStoryBySlug = cache(async (slug: string) => {
   try {
     const indexStories: StoriesIndexEntry[] = JSON.parse(
       readFileSync(
@@ -44,7 +50,7 @@ async function getStoryBySlug(slug: string) {
   } catch (error) {
     notFound();
   }
-}
+});
 
 async function listRandomStories() {
   try {
@@ -61,7 +67,26 @@ async function listRandomStories() {
   }
 }
 
-async function Page({ params: { slug } }: { params: { slug: string } }) {
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  const story = await getStoryBySlug(params.slug);
+
+  const previousImages = (await parent).openGraph?.images || [];
+
+  return {
+    title: story.title,
+    description: story.subtitle,
+    keywords: story.keywords,
+    authors: [{ name: 'Azvya Erstevan', url: 'https://optimisticoder.com' }],
+    openGraph: {
+      images: [story.cover, ...previousImages],
+    },
+  };
+}
+
+async function Page({ params: { slug } }: Props) {
   const story = await getStoryBySlug(slug);
   const shuffledStories = await listRandomStories();
   const breadcrumbs = [
