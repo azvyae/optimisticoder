@@ -6,6 +6,7 @@ import matter from 'gray-matter';
 import type { MetadataRoute } from 'next';
 import type { CategoryIndexEntry, StoriesIndexEntry } from '@/types/common';
 import readingTime from 'reading-time';
+import { APP_ENV } from '@/config/common';
 
 const storiesDir = '_stories';
 const storiesIndexerPath = path.join(
@@ -49,6 +50,12 @@ async function prepareStoriesFolder() {
     try {
       console.info("Stories folder doesn't exist, cloning...");
       execSync(`git clone ${gitUrl} ${storiesDir}`);
+      if (APP_ENV !== 'production') {
+        execSync(`git checkout test`);
+        console.info(
+          'Environment is not for production, checked in to test branch instead.',
+        );
+      }
       console.info('Successfuly cloning stories folder.');
     } catch (error) {
       console.error('Failed to clone the repository.');
@@ -61,8 +68,14 @@ async function prepareStoriesFolder() {
       cd ${storiesDir} && 
       git fetch origin && 
       git reset --hard origin/main && 
-      git pull
     `);
+    if (APP_ENV !== 'production') {
+      execSync(`git checkout test`);
+      console.info(
+        'Environment is not for production, checked in to test branch instead.',
+      );
+    }
+    execSync(`git pull`);
     console.info('Successfuly synced stories folder.');
   } catch (error) {
     console.error('Failed to sync the repository.');
