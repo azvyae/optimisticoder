@@ -1,4 +1,4 @@
-import inViewport from '../../support/inViewport';
+import inViewport from '@test/support/inViewport';
 
 describe('Checking home page', () => {
   before(() => {
