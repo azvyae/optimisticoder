@@ -6,7 +6,7 @@ export const metadata = {
 
 export default async function NotFound() {
   return (
-    <main className="flex flex-col items-center justify-center h-screen gap-4 bg-[rgb(221,198,142)] grow text-dark">
+    <main className="flex flex-col items-center justify-center h-screen gap-4 bg-[rgb(221,198,142)] dark:bg-[#4b4637] dark:text-light grow text-dark">
       <h2 className="mt-4 text-3xl font-bold text-center animate-bounce md:text-5xl">
         404 Not Found
       </h2>

@@ -14,7 +14,7 @@ export default function Error({
   reset: () => void;
 }) {
   return (
-    <main className="flex flex-col items-center justify-center h-screen gap-4 bg-[rgb(255,193,193)] grow text-dark px-4">
+    <main className="flex flex-col items-center justify-center h-screen gap-4 bg-[rgb(255,193,193)] dark:bg-[rgb(74,54,54)] dark:text-light grow text-dark px-4">
       <h2 className="mt-4 text-3xl font-bold text-center animate-bounce md:text-5xl">
         Uh oh
       </h2>
@@ -22,7 +22,7 @@ export default function Error({
         We&#39;ve got a problem, please be kindly wait until we fix this.
       </p>
       {APP_ENV === 'local' && (
-        <pre className="bg-secondary px-4 py-2 w-full max-w-screen-md border overflow-auto">
+        <pre className="bg-secondary dark:bg-bgdark px-4 py-2 w-full max-w-screen-md border overflow-auto">
           {error.stack}
         </pre>
       )}
