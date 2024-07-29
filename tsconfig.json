@@ -47,6 +47,7 @@
     "functions/*.ts",
     "tests/support/inViewport.js",
     "eslint.config.js",
+    "tests/e2e/pages/stories/.cy.ts",
   ],
   "exclude": [
     "node_modules"
