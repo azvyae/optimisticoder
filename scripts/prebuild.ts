@@ -72,7 +72,9 @@ async function prepareStoriesFolder() {
       git reset --hard origin/main && 
     `);
     if (APP_ENV !== 'production') {
-      execSync(`git checkout test`);
+      execSync(`
+        cd ${storiesDir} && 
+        git checkout test`);
       console.info(
         'Environment is not for production, checked in to test branch instead.',
       );

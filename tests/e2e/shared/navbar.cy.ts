@@ -1,27 +1,27 @@
-const navbarLinks = [
-  {
-    name: 'optimisticoder logo',
-    href: '/',
-  },
-  {
-    name: 'Home',
-    href: '/',
-  },
-  {
-    name: 'Stories',
-    href: '/stories',
-  },
-  {
-    name: 'Portfolio',
-    href: '/portfolio',
-  },
-  {
-    name: 'Contact',
-    href: '/contact',
-  },
-];
-
 describe('Base navbar', () => {
+  const navbarLinks = [
+    {
+      name: 'optimisticoder logo',
+      href: '/',
+    },
+    {
+      name: 'Home',
+      href: '/',
+    },
+    {
+      name: 'Stories',
+      href: '/stories',
+    },
+    {
+      name: 'Portfolio',
+      href: '/portfolio',
+    },
+    {
+      name: 'Contact',
+      href: '/contact',
+    },
+  ];
+
   beforeEach(() => {
     cy.visit('/');
   });

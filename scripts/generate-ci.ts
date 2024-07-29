@@ -6,8 +6,11 @@ if (process.platform !== 'win32') {
     'utf-8',
   );
 } else {
-  execSync('type tests/e2e/**/*.cy.ts > tests/e2e/merged.cy.ts', {
-    shell: 'powershell',
-  }).toString('utf-8');
+  execSync(
+    'Get-Content -Encoding utf8 tests/e2e/**/*.cy.ts | Out-File -Encoding utf8 tests/e2e/merged.cy.ts',
+    {
+      shell: 'powershell',
+    },
+  ).toString('utf8');
 }
 console.info('Test fiels merged');
