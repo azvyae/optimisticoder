@@ -1,4 +1,4 @@
-describe('Base navbar', () => {
+describe('Checking navbar', () => {
   const navbarLinks = [
     {
       name: 'optimisticoder logo',

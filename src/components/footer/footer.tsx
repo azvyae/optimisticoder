@@ -15,11 +15,17 @@ function Footer() {
             src={logoFull}
           />
         </Link>
-        <div className="md:items-center justify-center flex-col items-start md:gap-8 text-base flex md:flex-row">
+        <div
+          data-item="footer-links"
+          className="md:items-center justify-center flex-col items-start md:gap-8 text-base flex md:flex-row"
+        >
           <h6 className="font-extrabold md:hidden text-lg mb-2">Links</h6>
           <MainLinks />
         </div>
-        <div className="md:items-center justify-end flex-col items-start md:gap-8 text-base flex md:flex-row">
+        <div
+          data-item="social-links"
+          className="md:items-center justify-end flex-col items-start md:gap-8 text-base flex md:flex-row"
+        >
           <h6 className="font-extrabold md:hidden text-lg mb-2">
             Social Media
           </h6>
@@ -27,7 +33,10 @@ function Footer() {
         </div>
       </div>
       <hr className="w-full text-[#19231B]/15 dark:text-[#a3e3b0]/15" />
-      <div className="flex gap-4 justify-center py-4 dark:text-[#b6b6b6] text-[#5a5a5a] text-sm">
+      <div
+        data-item="additional-links"
+        className="flex gap-4 justify-center py-4 dark:text-[#b6b6b6] text-[#5a5a5a] text-sm"
+      >
         <Link href={'/disclaimer'} className="underline">
           Disclaimer
         </Link>
