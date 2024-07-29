@@ -13,7 +13,10 @@ interface BreadcrumbsProps {
 
 function Breadcrumbs({ links }: BreadcrumbsProps) {
   return (
-    <div className="flex gap-3 items-start dark:brightness-125">
+    <div
+      data-item="breadcrumbs"
+      className="flex gap-3 items-start dark:brightness-125"
+    >
       <Image
         src={Stars}
         draggable={false}

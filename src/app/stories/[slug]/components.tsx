@@ -23,6 +23,7 @@ function ShareButtons({ title, link }: ShareButtonsProps) {
   return (
     <div className="text-[#626262] flex gap-4 sm:gap-2">
       <button
+        data-item="share"
         title={`Share "${title}"`}
         className="font-bold hover:text-primary transition-colors"
         type="button"
@@ -42,7 +43,11 @@ interface WriterDisplayProps {
 function WriterDisplay({ date, readTime }: WriterDisplayProps) {
   return (
     <div className="flex items-center gap-4 dark:brightness-125">
-      <Link href={'/contact'} title="Contact Azvya Erstevan">
+      <Link
+        data-item="image-contact-link"
+        href={'/contact'}
+        title="Contact Azvya Erstevan"
+      >
         <Image
           src={avatar}
           className="w-10 sm:w-11 rounded-full"
@@ -52,6 +57,7 @@ function WriterDisplay({ date, readTime }: WriterDisplayProps) {
       </Link>
       <div className="flex flex-col text-sm sm:text-base">
         <Link
+          data-item="text-contact-link"
           className="group w-fit hover:text-primary break-all transition-colors"
           href={'/contact'}
           title="Contact Azvya Erstevan"
@@ -62,13 +68,16 @@ function WriterDisplay({ date, readTime }: WriterDisplayProps) {
           </span>
         </Link>
         <div className="flex gap-2">
-          <p>{readTime}</p>
+          <p data-item="reading-time">{readTime}</p>
           <span>•</span>
           <Link
             className="group w-fit inline hover:text-primary break-all transition-colors"
             href={`/stories?date=${encodeURIComponent(formatDate(date))}`}
           >
-            <span className="flex relative items-center break-all gap-2">
+            <span
+              data-item="published-date"
+              className="flex relative items-center break-all gap-2"
+            >
               {date.toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'short',

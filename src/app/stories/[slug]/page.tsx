@@ -96,25 +96,36 @@ async function Page({ params: { slug } }: { params: { slug: string } }) {
           </div>
         </div>
         <hr className="mb-8 text-[#19231B]/15 dark:text-[#a3e3b0]/15" />
-        <MarkdownUI markdown={story.content} />
+        <div data-item="story-body">
+          <MarkdownUI markdown={story.content} />
+        </div>
         <hr className="my-3 text-[#19231B]/15 dark:text-[#a3e3b0]/15" />
-        <div className="flex gap-4 flex-wrap">
-          <span>Keywords:</span>
-          {story.keywords.map((keyword, i) => (
-            <Link
-              key={i}
-              className="bg-[#D9D9D9] hover:bg-[#bbbbbb] hover:dark:bg-[#6b6b6b] dark:bg-[#4d4d4d] transition-colors rounded-lg px-2"
-              href={`/stories?related=${keyword}`}
-              title={`See stories related with ${keyword}`}
-            >
-              {keyword}
-            </Link>
-          ))}
+        <div className="flex justify-between items-center gap-2">
+          <div data-item="keyword-list" className="flex gap-4 flex-wrap">
+            <span>Keywords:</span>
+            {story.keywords.map((keyword, i) => (
+              <Link
+                key={i}
+                className="bg-[#D9D9D9] hover:bg-[#bbbbbb] hover:dark:bg-[#6b6b6b] dark:bg-[#4d4d4d] transition-colors rounded-lg px-2"
+                href={`/stories?related=${keyword}`}
+                title={`See stories related with ${keyword}`}
+              >
+                {keyword}
+              </Link>
+            ))}
+          </div>
+          <ShareButtons
+            title={story.title}
+            link={`${APP_URL}/stories/${story.slug}`}
+          />
         </div>
       </article>
-      <section className="md:max-w-screen-half w-full">
+      <section
+        data-item="see-another-stories"
+        className="md:max-w-screen-half w-full"
+      >
         <h5 className="text-left text-2xl font-bold mb-6">
-          Baca cerita lainnya
+          Read another stories
         </h5>
         <div className="flex gap-4 flex-wrap justify-between mb-6">
           {shuffledStories.map((index, k) => (
