@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: ['selector'],
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -19,6 +20,7 @@ module.exports = {
       danger: '#C51605',
       light: '#FFFFFF',
       dark: '#19231B',
+      bgdark: '#242424',
     },
     extend: {
       transformOrigin: {
@@ -37,6 +39,16 @@ module.exports = {
       },
 
       typography: ({ theme }) => ({
+        DEFAULT: {
+          css: {
+            pre: {
+              color: 'black',
+              background: 'transparent',
+              padding: 0,
+              margin: 0,
+            },
+          },
+        },
         optimisticoder: {
           css: {
             '--tw-prose-body': theme('colors.dark'),
@@ -52,7 +64,7 @@ module.exports = {
             '--tw-prose-captions': theme('colors.primary'),
             '--tw-prose-code': theme('colors.dark'),
             '--tw-prose-pre-code': theme('colors.dark'),
-            '--tw-prose-pre-bg': theme('colors.secondary'),
+            '--tw-prose-pre-bg': '#324d39',
             '--tw-prose-th-borders': theme('colors.dark/30'),
             '--tw-prose-td-borders': theme('colors.dark/30'),
             '--tw-prose-invert-body': theme('colors.light'),
@@ -60,8 +72,8 @@ module.exports = {
             '--tw-prose-invert-lead': theme('colors.light'),
             '--tw-prose-invert-links': theme('colors.primary'),
             '--tw-prose-invert-bold': theme('colors.light'),
-            '--tw-prose-invert-counters': theme('colors.primary'),
-            '--tw-prose-invert-bullets': theme('colors.primary'),
+            '--tw-prose-invert-counters': 'rgb(163 227 176)',
+            '--tw-prose-invert-bullets': 'rgb(163 227 176)',
             '--tw-prose-invert-hr': theme('colors.dark/10'),
             '--tw-prose-invert-quotes': theme('colors.dark/10'),
             '--tw-prose-invert-quote-borders': theme('colors.dark/10'),
@@ -71,6 +83,12 @@ module.exports = {
             '--tw-prose-invert-pre-bg': theme('colors.dark'),
             '--tw-prose-invert-th-borders': theme('colors.dark/10'),
             '--tw-prose-invert-td-borders': theme('colors.dark/10'),
+            pre: {
+              color: 'black',
+              background: 'transparent',
+              padding: 0,
+              margin: 0,
+            },
           },
         },
       }),

@@ -64,6 +64,13 @@ describe('Base navbar', () => {
             );
           });
       });
+
+      it('handles dark mode on desktop', () => {
+        cy.getItem('desktop-dark-mode-toggler').first().click();
+        cy.get('html').should('have.class', 'dark');
+        cy.getItem('desktop-dark-mode-toggler').first().click();
+        cy.get('html').should('not.have.class', 'dark');
+      });
     },
   );
 
@@ -92,6 +99,13 @@ describe('Base navbar', () => {
           cy.wrap($a).contains(navbarLinks[index + 1].name);
           cy.wrap($a).should('have.attr', 'href', navbarLinks[index + 1].href);
         });
+    });
+
+    it('handles dark mode on mobile', () => {
+      cy.getItem('mobile-dark-mode-toggler').first().click();
+      cy.get('html').should('have.class', 'dark');
+      cy.getItem('mobile-dark-mode-toggler').first().click();
+      cy.get('html').should('not.have.class', 'dark');
     });
   });
 });

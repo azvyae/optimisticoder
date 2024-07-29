@@ -10,7 +10,6 @@ Please delete the unrelated option:
 
 - Bug fix (fixes an issue without introducing new features)
 - New feature (adds new functionality)
-- Stories updates.
 
 ## Testing
 

@@ -34,7 +34,7 @@
 
   html,
   body {
-    @apply !scroll-smooth font-body h-full overflow-visible w-full text-dark;
+    @apply !scroll-smooth font-body h-full overflow-visible w-full text-dark dark:text-light;
   }
 
   h1,
