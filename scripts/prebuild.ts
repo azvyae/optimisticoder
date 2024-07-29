@@ -51,7 +51,9 @@ async function prepareStoriesFolder() {
       console.info("Stories folder doesn't exist, cloning...");
       execSync(`git clone ${gitUrl} ${storiesDir}`);
       if (APP_ENV !== 'production') {
-        execSync(`git checkout test`);
+        execSync(`
+          cd ${storiesDir} &&
+          git checkout test`);
         console.info(
           'Environment is not for production, checked in to test branch instead.',
         );
