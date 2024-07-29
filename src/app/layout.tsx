@@ -20,6 +20,7 @@ import { ClientProvider } from '@/providers/client-provider';
 import 'react-loading-skeleton/dist/skeleton.css';
 import 'react-toastify/dist/ReactToastify.min.css';
 import './globals.css';
+import { Footer } from '@/components/footer/footer';
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -51,6 +52,7 @@ export default function Root({ children }: { children: React.ReactNode }) {
         <Navbar />
 
         {children}
+        <Footer />
         <ClientProvider />
         <Analytics />
         <SpeedInsights />
