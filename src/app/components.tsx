@@ -10,9 +10,9 @@ function Hero() {
     >
       <div className="aurora-animation">
         <div className="transition-colors bg-[#ffcc00] dark:bg-[#b6a355] sm:-bottom-8 h-14 sm:h-32" />
-        <div className="transition-colors bg-[#23b964] dark:bg-[#9ec7b0] h-32 sm:h-64 sm:-bottom-10" />
+        <div className="transition-colors bg-[#8eb923] dark:bg-[#b5c79e] h-32 sm:h-64 sm:-bottom-10" />
         <div className="transition-colors bg-[#17b429] dark:bg-[#55b660] h-14 sm:h-32 sm:-bottom-7" />
-        <div className="transition-colors bg-[#1eed78] dark:bg-[#58b37f] h-18 sm:h-48 sm:-bottom-20" />
+        <div className="transition-colors bg-[#1e82ed] dark:bg-[#587bb3] h-18 sm:h-48 sm:-bottom-20" />
       </div>
 
       <main className="pt-12 md:pt-24 xl:pt-48 pb-24 mb:pb-48 xl:pb-64 flex px-8 xl:px-24 items-center relative sm:justify-between sm:flex-row-reverse flex-col-reverse">
@@ -32,7 +32,9 @@ function Hero() {
           >
             It&apos;s your code,
             <br /> be optimist
-            <span className="animate-blinking transition-none">|</span>
+            <span className="animate-blinking transition-none select-none">
+              |
+            </span>
           </h1>
           <p className="text-lg sm:text-2xl !leading-relaxed sm:text-nowrap">
             Become a better coder

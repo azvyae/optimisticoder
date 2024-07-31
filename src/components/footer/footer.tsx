@@ -7,7 +7,7 @@ function Footer() {
   return (
     <footer className="w-full pt-10 px-8 xl:px-32  sm:pt-20">
       <div className="w-full mx-auto transition-colors md:items-center duration-500 bg-light dark:bg-bgdark grid md:grid-cols-3 items-start justify-between gap-8 py-4 md:gap-2.5 max-w-screen-2k">
-        <Link className="inline-block h-10 py-2" href={'/'} tabIndex={0}>
+        <Link className="inline-block h-10 py-2" href={'/'}>
           <Image
             alt="optimisticoder logo"
             title="Optimisticoder logo"
