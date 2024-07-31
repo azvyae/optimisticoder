@@ -5,6 +5,8 @@ import { links } from '@/config/common';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
+import Cookies from 'js-cookie';
+
 import {
   MdBrightnessAuto,
   MdMenu,
@@ -12,6 +14,7 @@ import {
   MdNightlight,
   MdSunny,
 } from 'react-icons/md';
+import type { Theme } from '@/types/common';
 
 const styles = {
   active: `!text-primary dark:brightness-125`,
@@ -20,7 +23,7 @@ const styles = {
   inactiveDarkToggler: `scale-0 rotate-90`,
 };
 
-function NavigationLinks() {
+function NavigationLinks({ defaultTheme }: { defaultTheme: Theme }) {
   return (
     <>
       {links.map((link, index) => {
@@ -47,12 +50,13 @@ function NavigationLinks() {
       <DarkModeSelector
         dataItem="desktop-dark-mode-toggler"
         className="max-md:hidden"
+        defaultTheme={defaultTheme}
       />
     </>
   );
 }
 
-function NavigationMobile() {
+function NavigationMobile({ defaultTheme }: { defaultTheme: Theme }) {
   const pathname = usePathname();
   const [navOpen, setNavOpen] = useState(false);
   function toggleNavbar() {
@@ -74,6 +78,7 @@ function NavigationMobile() {
       <DarkModeSelector
         dataItem="mobile-dark-mode-toggler"
         className="md:hidden"
+        defaultTheme={defaultTheme}
       />
       <button
         className="block md:hidden relative"
@@ -96,7 +101,7 @@ function NavigationMobile() {
               className="fixed top-0 flex flex-col justify-between w-screen h-screen text-lg mt-[72px] z-20 bg-[#fff] dark:bg-bgdark md:hidden"
             >
               <div className="relative top-0 flex flex-col w-full h-full gap-2 pt-4 pb-64 overflow-y-auto bg-[#fff] dark:bg-bgdark">
-                <NavigationLinks />
+                <NavigationLinks defaultTheme={defaultTheme} />
               </div>
             </div>
           ) : (
@@ -108,46 +113,47 @@ function NavigationMobile() {
   );
 }
 
-type Theme = 'dark' | 'light' | undefined;
-
 function DarkModeSelector({
   className,
   dataItem,
+  defaultTheme,
 }: {
   className?: string;
   dataItem: string;
+  defaultTheme: Theme;
 }) {
-  const [theme, setTheme] = useState<Theme>();
+  const [theme, setTheme] = useState<Theme>(defaultTheme);
   useEffect(() => {
-    switch (theme) {
-      case 'dark':
+    if (!defaultTheme) {
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
         document.documentElement.classList.add('dark');
-        break;
-      case 'light':
+        Cookies.set('theme', 'dark');
+      } else {
         document.documentElement.classList.remove('dark');
-        break;
-      default:
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-        }
-        break;
+        Cookies.set('theme', 'light');
+      }
     }
-    setTheme(localStorage.getItem('theme') as Theme);
-  }, [theme]);
+    setTheme(Cookies.get('theme') as Theme);
+  }, [defaultTheme]);
 
   function toggle() {
     setTheme((t) => {
       switch (t) {
         case 'dark':
-          localStorage.setItem('theme', 'light');
+          document.documentElement.classList.remove('dark');
+          Cookies.set('theme', 'light');
           return 'light';
         case 'light':
-          localStorage.removeItem('theme');
+          if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+          Cookies.remove('theme');
           return;
         default:
-          localStorage.setItem('theme', 'dark');
+          document.documentElement.classList.add('dark');
+          Cookies.set('theme', 'dark');
           return 'dark';
       }
     });

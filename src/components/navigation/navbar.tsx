@@ -6,7 +6,11 @@ import {
   NavigationLinks,
   NavigationMobile,
 } from '@/components/navigation/components';
+import { cookies } from 'next/headers';
+import type { Theme } from '@/types/common';
 async function Navbar() {
+  const defaultTheme = cookies().get('theme')?.value as Theme;
+
   return (
     <nav className="relative" data-item="main-nav">
       <div
@@ -27,12 +31,12 @@ async function Navbar() {
               src={logoShort}
             />
           </Link>
-          <NavigationMobile />
+          <NavigationMobile defaultTheme={defaultTheme} />
           <div
             data-item="desktop-nav"
             className="items-center justify-center hidden gap-4 text-base md:flex"
           >
-            <NavigationLinks />
+            <NavigationLinks defaultTheme={defaultTheme} />
           </div>
         </div>
       </div>

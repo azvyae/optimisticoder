@@ -21,6 +21,8 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import 'react-toastify/dist/ReactToastify.min.css';
 import './globals.css';
 import { Footer } from '@/components/footer/footer';
+import type { Theme } from '@/types/common';
+import { cookies } from 'next/headers';
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -44,8 +46,9 @@ export const metadata: Metadata = {
 };
 
 export default function Root({ children }: { children: React.ReactNode }) {
+  const defaultTheme = cookies().get('theme')?.value as Theme;
   return (
-    <html lang="en">
+    <html lang="en" className={defaultTheme === 'dark' ? 'dark' : ''}>
       <body
         className={`${jebrainsMono.variable} ${ebGaramond.variable} transition-colors duration-500 bg-light dark:bg-bgdark`}
       >

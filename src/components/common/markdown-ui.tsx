@@ -88,7 +88,7 @@ function MarkdownUI({ markdown }: MarkdownUIProps) {
           ) : (
             <code
               {...props}
-              className={`${className} text-indigo-700 break-words whitespace-pre-wrap`}
+              className={`${className} dark:text-[#fabf28] text-[#bc9020] break-words whitespace-pre-wrap`}
             >
               {children}
             </code>

@@ -21,4 +21,6 @@ interface StoriesIndexEntry extends StoriesMetadata {
   readTime: string;
 }
 
+type Theme = 'dark' | 'light' | undefined;
+
 type CategoryIndexEntry = string[];
