@@ -71,6 +71,77 @@
     opacity: 0;
     position: absolute;
   }
+
+  @keyframes fly {
+    100% {
+      height: 150px;
+      filter: blur(50px);
+      transform: rotate(-1turn) translate(0) rotate(1turn) skew(14deg, 14deg);
+    }
+  }
+
+  @keyframes flyPlus {
+    100% {
+      filter: blur(50px);
+      transform: rotate(-1turn) translate(0) rotate(1turn) skew(-14deg, -14deg);
+    }
+  }
+
+  .aurora-animation {
+    width: 100%;
+    height: 256px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow-x: clip;
+  }
+
+  .aurora-animation > div {
+    position: absolute;
+    filter: blur(60px);
+    opacity: 0.5;
+  }
+
+  .aurora-animation > div:nth-child(1) {
+    width: 40vw;
+    left: -100;
+    animation: fly 7s alternate-reverse infinite;
+    transform: rotate(0) translate(0) rotate(0) skew(0);
+  }
+
+  .aurora-animation > div:nth-child(2) {
+    width: 70vw;
+    right: 30%;
+    animation: flyPlus 5s alternate-reverse infinite;
+    transform: rotate(0) translate(0) rotate(0) skew(0);
+  }
+
+  .aurora-animation > div:nth-child(3) {
+    width: 70vw;
+    left: 50%;
+    animation: fly 8s alternate-reverse infinite;
+    transform: rotate(0) translate(0) rotate(0) skew(0);
+  }
+
+  .aurora-animation > div:nth-child(4) {
+    width: 50vw;
+    right: -100px;
+    animation: flyPlus 8s alternate-reverse infinite;
+    transform: rotate(0) translate(0) rotate(0) skew(0);
+  }
+
+  .masonry-brick:nth-child(4n + 1) {
+    width: 250px;
+  }
+  .masonry-brick:nth-child(4n + 1):nth-child(4n + 2) {
+    width: 325px;
+  }
+  .masonry-brick:nth-child(4n + 1):nth-child(4n + 3) {
+    width: 180px;
+  }
+  .masonry-brick:nth-child(4n + 1):nth-child(4n + 4) {
+    width: 380px;
+  }
 }
 
 @layer utilities {
@@ -96,6 +167,22 @@
 
   .rotate {
     animation: rotate 4s ease-in-out infinite;
+  }
+
+  .animate-blinking {
+    animation: blink 1s none infinite;
+  }
+
+  @keyframes blink {
+    0% {
+      opacity: 100%;
+    }
+    50% {
+      opacity: 0%;
+    }
+    100% {
+      opacity: 100%;
+    }
   }
 
   @keyframes rotate {

@@ -52,6 +52,9 @@ async function prepareStoriesFolder() {
       console.info("Stories folder doesn't exist, cloning...");
       execSync(`git clone ${gitUrl} ${storiesDir}`);
       if (APP_ENV !== 'production') {
+        execSync(`
+        cd ${storiesDir} && 
+        git checkout test`);
         simpleGit(storiesDir).checkout('test');
         console.info(
           'Environment is not for production, checked in to test branch instead.',
@@ -71,6 +74,9 @@ async function prepareStoriesFolder() {
       git reset --hard origin/main && 
     `);
     if (APP_ENV !== 'production') {
+      execSync(`
+        cd ${storiesDir} && 
+        git checkout test`);
       simpleGit(storiesDir).checkout('test');
       console.info(
         'Environment is not for production, checked in to test branch instead.',
