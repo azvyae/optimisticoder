@@ -23,7 +23,9 @@ describe('Checking navbar', () => {
   ];
 
   beforeEach(() => {
-    cy.visit('/');
+    cy.setCookie('theme', 'light').then(() => {
+      cy.visit('/');
+    });
   });
 
   context('Main navbar', () => {
@@ -66,9 +68,10 @@ describe('Checking navbar', () => {
       });
 
       it('handles dark mode on desktop', () => {
-        cy.getItem('desktop-dark-mode-toggler').first().click();
+        cy.getItem('desktop-dark-mode-toggler').first().click({ force: true });
+        cy.getItem('desktop-dark-mode-toggler').first().click({ force: true });
         cy.get('html').should('have.class', 'dark');
-        cy.getItem('desktop-dark-mode-toggler').first().click();
+        cy.getItem('desktop-dark-mode-toggler').first().click({ force: true });
         cy.get('html').should('not.have.class', 'dark');
       });
     },
@@ -92,7 +95,9 @@ describe('Checking navbar', () => {
     });
 
     it('navigate mobile links', () => {
+      cy.getItem('mobile-nav').should('not.exist');
       cy.getItem('main-nav').find('button[data-item="hamburger"]').click();
+      cy.getItem('mobile-nav').find('a').should('be.visible');
       cy.getItem('mobile-nav')
         .find('a')
         .each(($a, index) => {
@@ -102,9 +107,10 @@ describe('Checking navbar', () => {
     });
 
     it('handles dark mode on mobile', () => {
-      cy.getItem('mobile-dark-mode-toggler').first().click();
+      cy.getItem('mobile-dark-mode-toggler').first().click({ force: true });
+      cy.getItem('mobile-dark-mode-toggler').first().click({ force: true });
       cy.get('html').should('have.class', 'dark');
-      cy.getItem('mobile-dark-mode-toggler').first().click();
+      cy.getItem('mobile-dark-mode-toggler').first().click({ force: true });
       cy.get('html').should('not.have.class', 'dark');
     });
   });
