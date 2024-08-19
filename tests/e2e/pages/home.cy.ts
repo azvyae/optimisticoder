@@ -16,7 +16,7 @@ describe('Checking home page', () => {
         .contains('optimistic');
     });
   });
-  context.only('Explore apps section', () => {
+  context('Explore apps section', () => {
     it('has the heading', () => {
       cy.getItem('explore-apps-section').find('h2').contains('Explore Apps');
     });
@@ -47,10 +47,15 @@ describe('Checking home page', () => {
         .should('exist');
     });
   });
-  context('Most highlighted story section', () => {
+  context.only('Most highlighted story section', () => {
     it('has highlighted story section', () => {
       cy.getItem('higlighted-story-section').then(($sec) => {
-        cy.wrap($sec).should('have.attr', 'href');
+        cy.wrap($sec)
+          .find('a')
+          .should('have.length', 3)
+          .each(($a) => {
+            cy.wrap($a).should('have.attr', 'href');
+          });
         cy.wrap($sec).find('img');
         cy.wrap($sec).find('[title="Story category"]').should('exist');
         cy.wrap($sec).find('[title="Story read time"]').should('exist');

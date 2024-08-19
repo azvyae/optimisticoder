@@ -5,8 +5,9 @@ import React, { useState } from 'react';
 import Tools from '@public/static/svg/tools.svg';
 import { apps } from '@/config/common';
 import Link from 'next/link';
-import { generateFallbackImage } from '@/helpers/common';
+import { capitalize, generateFallbackImage } from '@/helpers/common';
 import { FallbackImage } from '@/components/image';
+import type { StoriesIndexEntry } from '@/types/common';
 
 function Hero() {
   return (
@@ -151,4 +152,61 @@ function ExploreApps() {
   );
 }
 
-export { Hero, ExploreApps };
+function MostHighlightedStory({ story }: { story?: StoriesIndexEntry }) {
+  if (!story) {
+    return;
+  }
+  return (
+    <section data-item="higlighted-story-section" className="md:px-8">
+      <div className="border rounded-lg overflow-hidden grid lg:grid-cols-2">
+        <Link href={`/stories/${story.slug}`} title={`Read ${story.title}`}>
+          <Image
+            src={story.cover}
+            className="w-full h-full object-cover border-r-dark dark:border-r-light"
+            alt={`Thumbnail of ${story.title}`}
+            width={512}
+            height={512}
+          />
+        </Link>
+        <div className="p-6 group-hover:dark:bg-[#1f1f1f] group-hover:bg-[#ececec] flex flex-col gap-8 justify-between">
+          <div className="grid gap-8">
+            <p className="text-sm sm:text-base">
+              <span
+                title="Story category"
+                className="bg-[#000] inline truncate text-light dark:bg-light dark:text-dark rounded-sm py-1 px-2"
+              >
+                {capitalize(story.category)}
+              </span>{' '}
+              <span
+                title="Story read time"
+                className="truncate inline line-clamp-1"
+              >
+                {story.readTime}
+              </span>
+            </p>
+            <Link href={`/stories/${story.slug}`} title={`Read ${story.title}`}>
+              <h3 className="text-2xl md:text-3xl xl:text-5xl hover:underline font-bold">
+                {story.title}
+              </h3>
+            </Link>
+            <p
+              title="Story excerpt"
+              className="text-[#7d7d7d] xl:text-xl dark:text-[#9d9d9d]"
+            >
+              {story.excerpt}
+            </p>
+          </div>
+          <Link
+            href={`/stories/${story.slug}`}
+            title={`Read ${story.title}`}
+            className="hover:underline border text-sm sm:text-base bg-light dark:bg-bgdark w-fit px-4 py-2 rounded-sm"
+          >
+            Read More &gt;
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export { Hero, ExploreApps, MostHighlightedStory };
