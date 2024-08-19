@@ -4,7 +4,7 @@ describe('View story page', () => {
   });
   context('Checks story header', () => {
     it('has breadcrumbs', () => {
-      const breadcrumbs = ['Stories', 'Development', 'Hello World Everybody'];
+      const breadcrumbs = ['Stories', 'Dev', 'Hello World Everybody'];
       cy.getItem('breadcrumbs')
         .find('a')
         .each(($a, i) => {
