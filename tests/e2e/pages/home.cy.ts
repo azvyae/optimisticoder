@@ -47,7 +47,7 @@ describe('Checking home page', () => {
         .should('exist');
     });
   });
-  context.only('Most highlighted story section', () => {
+  context('Most highlighted story section', () => {
     it('has highlighted story section', () => {
       cy.getItem('higlighted-story-section').then(($sec) => {
         cy.wrap($sec)
@@ -71,7 +71,7 @@ describe('Checking home page', () => {
         cy.wrap($section).find('h4').contains('Latest Stories');
         cy.wrap($section)
           .getItem('story-card')
-          .should('have.length', 3)
+          .should('have.length', 4)
           .each(($card) => {
             cy.wrap($card).should('have.attr', 'href');
             cy.wrap($card).find('img');

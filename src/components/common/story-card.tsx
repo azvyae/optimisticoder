@@ -14,7 +14,7 @@ function StoryCard({ story, className }: StoryCardProps) {
       href={`/stories/${story.slug}`}
       title={`Read ${story.title}`}
       data-item="story-card"
-      className={`border w-full rounded overflow-hidden group flex justify-between flex-col ${className}`}
+      className={`border-[#909090] border dark:border-[#5d5d5d] w-full rounded overflow-hidden group flex justify-between flex-col ${className}`}
     >
       <Image
         className="aspect-square object-cover h-full w-full"
@@ -23,7 +23,7 @@ function StoryCard({ story, className }: StoryCardProps) {
         height={512}
         alt={`Thumbnail of ${story.title}`}
       />
-      <hr />
+      <hr className="text-[#909090] dark:text-[#5d5d5d]" />
       <div className="p-6 group-hover:dark:bg-[#1f1f1f] group-hover:bg-[#ececec] grid gap-4">
         <p className="text-sm sm:text-base truncate line-clamp-1">
           <span

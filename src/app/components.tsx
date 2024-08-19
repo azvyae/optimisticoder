@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { capitalize, generateFallbackImage } from '@/helpers/common';
 import { FallbackImage } from '@/components/image';
 import type { StoriesIndexEntry } from '@/types/common';
+import { StoryCard } from '@/components/common/story-card';
 
 function Hero() {
   return (
@@ -157,18 +158,18 @@ function MostHighlightedStory({ story }: { story?: StoriesIndexEntry }) {
     return;
   }
   return (
-    <section data-item="higlighted-story-section" className="md:px-8">
-      <div className="border rounded-lg overflow-hidden grid lg:grid-cols-2">
+    <section data-item="higlighted-story-section" className="md:px-8 py-16">
+      <div className="border-[#909090] border dark:border-[#5d5d5d] rounded-lg overflow-hidden gap-4 grid lg:grid-cols-2">
         <Link href={`/stories/${story.slug}`} title={`Read ${story.title}`}>
           <Image
             src={story.cover}
-            className="w-full h-full object-cover border-r-dark dark:border-r-light"
+            className="w-full h-full object-cover border-[#909090] lg:border-r border-b dark:border-[#5d5d5d]"
             alt={`Thumbnail of ${story.title}`}
             width={512}
             height={512}
           />
         </Link>
-        <div className="p-6 group-hover:dark:bg-[#1f1f1f] group-hover:bg-[#ececec] flex flex-col gap-8 justify-between">
+        <div className="px-6 py-8 group-hover:dark:bg-[#1f1f1f] group-hover:bg-[#ececec] flex flex-col gap-8 justify-between">
           <div className="grid gap-8">
             <p className="text-sm sm:text-base">
               <span
@@ -209,4 +210,17 @@ function MostHighlightedStory({ story }: { story?: StoriesIndexEntry }) {
   );
 }
 
-export { Hero, ExploreApps, MostHighlightedStory };
+function LatestStories({ stories }: { stories: StoriesIndexEntry[] }) {
+  return (
+    <section data-item="latest-stories-section" className="px-8 md:px-16 py-8">
+      <h4 className="text-left text-3xl font-bold mb-6">Latest Stories</h4>
+      <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-4 mb-6">
+        {stories.map((index, k) => (
+          <StoryCard story={index} key={k} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+export { Hero, ExploreApps, MostHighlightedStory, LatestStories };
