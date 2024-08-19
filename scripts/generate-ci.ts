@@ -13,4 +13,4 @@ if (process.platform !== 'win32') {
     },
   ).toString('utf8');
 }
-console.info('Test fiels merged');
+console.info('Test files merged');
