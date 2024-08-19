@@ -7,6 +7,8 @@ const nextConfig = {
     remotePatterns: [
       ...(isProd ? [] : [{ hostname: 'localhost' }]),
       { hostname: 'lh3.googleusercontent.com' },
+      { hostname: '*.optimisticoder.com' },
+      { hostname: 'api.dicebear.com' },
     ],
   },
 };

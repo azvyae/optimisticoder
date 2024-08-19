@@ -13,6 +13,10 @@ function formatDate(date: Date) {
   return [year, month, day].join('-');
 }
 
+function generateFallbackImage(initials: string) {
+  return `https://api.dicebear.com/9.x/icons/jpg?seed=${encodeURIComponent(initials)}`;
+}
+
 function isMobileBrowser() {
   if (!window) {
     return false;
@@ -28,4 +32,4 @@ function isMobileBrowser() {
   );
 }
 
-export { capitalize, formatDate, isMobileBrowser };
+export { capitalize, formatDate, isMobileBrowser, generateFallbackImage };

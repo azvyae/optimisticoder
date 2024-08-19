@@ -2,7 +2,7 @@ describe('Checking home page', () => {
   beforeEach(() => {
     cy.visit('/');
   });
-  context.only('Hero section', () => {
+  context('Hero section', () => {
     it('has main heading', () => {
       cy.getItem('hero-section')
         .find('h1')
@@ -16,7 +16,7 @@ describe('Checking home page', () => {
         .contains('optimistic');
     });
   });
-  context('Explore apps section', () => {
+  context.only('Explore apps section', () => {
     it('has the heading', () => {
       cy.getItem('explore-apps-section').find('h2').contains('Explore Apps');
     });
@@ -43,7 +43,7 @@ describe('Checking home page', () => {
     it('has load more button', () => {
       cy.getItem('explore-apps-section')
         .find('button')
-        .contains('Load More')
+        .contains('Show Apps')
         .should('exist');
     });
   });

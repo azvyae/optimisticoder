@@ -1,9 +1,10 @@
-import { Hero } from '@/app/components';
+import { ExploreApps, Hero } from '@/app/components';
 
 async function Page() {
   return (
-    <main className="flex min-h-screen h-[1500px] flex-col items-center justify-between mt-[72px]">
+    <main className="flex flex-col items-center justify-between mt-[72px]">
       <Hero />
+      <ExploreApps />
     </main>
   );
 }
