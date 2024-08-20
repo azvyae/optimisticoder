@@ -1,7 +1,44 @@
+import { FilteringHandler } from '@/app/stories/components';
+import { STORIES_DIR } from '@/config/common';
 import Stars from '@public/static/svg/stars.svg';
+import { readFileSync } from 'fs';
+import jsonata from 'jsonata';
 import Image from 'next/image';
+import { notFound } from 'next/navigation';
+import path from 'path';
+import { FiSearch } from 'react-icons/fi';
 
-function StoriesHero() {
+async function listCategories() {
+  try {
+    const indexCategories: string[] = JSON.parse(
+      readFileSync(
+        path.join(process.cwd(), STORIES_DIR, 'index-categories.json'),
+      ).toString(),
+    );
+    const expression = jsonata(`$[]`);
+    const result: string[] = await expression.evaluate(indexCategories);
+    return result;
+  } catch (error) {
+    return [];
+  }
+}
+
+async function listStories(key?: 'category' | 'search', value?: string) {
+  try {
+    const indexStories: string[] = JSON.parse(
+      readFileSync(
+        path.join(process.cwd(), STORIES_DIR, 'index-stories.json'),
+      ).toString(),
+    );
+    const expression = jsonata(`$[]`);
+    const result: string[] = await expression.evaluate(indexStories);
+    return result;
+  } catch (error) {
+    return [];
+  }
+}
+
+async function StoriesHero() {
   return (
     <section className="w-full relative py-8" data-item="stories-hero">
       <div className="w-full max-w-2xl mx-auto gap-4 grid">
@@ -29,4 +66,43 @@ function StoriesHero() {
   );
 }
 
-export { StoriesHero };
+async function FilteringSection({
+  category,
+  search,
+}: {
+  category?: string;
+  search?: string;
+}) {
+  const categories = await listCategories();
+  if (category && !categories.includes(category)) {
+    return notFound();
+  }
+  return (
+    <section data-item="stories-filter" className="relative px-2 w-full">
+      <div className="flex max-w-full md:max-w-3xl justify-center gap-2 sm:gap-12 mx-auto">
+        <FilteringHandler
+          categories={categories}
+          category={category}
+          search={search}
+        />
+      </div>
+    </section>
+  );
+}
+
+async function StoriesSection({
+  category,
+  search,
+}: {
+  category?: string;
+  search?: string;
+}) {
+  const stories = await listStories(
+    category ? 'category' : search ? 'search' : undefined,
+    category ? category : search ? search : undefined,
+  );
+
+  return <></>;
+}
+
+export { FilteringSection, StoriesHero, StoriesSection };

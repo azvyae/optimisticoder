@@ -9,9 +9,8 @@ import type { StoriesIndexEntry } from '@/types/common';
 import { readFileSync } from 'fs';
 import jsonata from 'jsonata';
 import path from 'path';
-import { cache } from 'react';
 
-const listFiveLatestStories = cache(async () => {
+async function listFiveLatestStories() {
   try {
     const indexStories: StoriesIndexEntry[] = JSON.parse(
       readFileSync(
@@ -24,7 +23,7 @@ const listFiveLatestStories = cache(async () => {
   } catch (error) {
     return [];
   }
-});
+}
 
 async function Page() {
   const stories = await listFiveLatestStories();

@@ -1,7 +1,9 @@
 describe('Index and search story page', () => {
   context('Checks hero section', () => {
     beforeEach(() => {
-      cy.visit('/stories');
+      cy.setCookie('theme', 'dark').then(() => {
+        cy.visit('/stories');
+      });
     });
     it('has small title as a heading', () => {
       cy.getItem('stories-hero').find('h1').contains('Stories');
@@ -19,63 +21,70 @@ describe('Index and search story page', () => {
   });
   context('Checks filtering UI', () => {
     beforeEach(() => {
-      cy.visit('/stories');
+      cy.setCookie('theme', 'dark').then(() => {
+        cy.visit('/stories');
+      });
     });
     it('has category selectors', () => {
       const categories = [
         {
           text: 'All',
-          link: '/stories',
         },
         {
           text: 'Arts',
-          link: '/stories?category=arts',
         },
         {
           text: 'Dev',
-          link: '/stories?category=dev',
         },
         {
           text: 'Game',
-          link: '/stories?category=game',
         },
       ];
       cy.getItem('stories-filter')
-        .find('a')
-        .eq(4)
-        .each(($a, index) => {
-          cy.wrap($a)
-            .contains(categories[index].text)
-            .should('have.attr', 'href', categories[index].link);
+        .find('button[data-item=category-selector]')
+        .should('have.length', 4)
+        .each(($button, index) => {
+          cy.wrap($button).contains(categories[index].text);
         });
     });
     it('has search button', () => {
       cy.getItem('stories-filter').then(($sec) => {
         cy.wrap($sec).find('input[type=search]').should('not.be.visible');
-        cy.wrap($sec).find('button').click();
+        cy.wrap($sec).find('button[data-item=search-button]').click();
         cy.wrap($sec).find('input[type=search]').should('be.visible');
       });
     });
   });
   context('Checks category filtering handler', () => {
     beforeEach(() => {
-      cy.visit('/stories');
+      cy.setCookie('theme', 'dark').then(() => {
+        cy.visit('/stories');
+      });
     });
     it('shows all stories', () => {
-      cy.getItem('story-cards-section').find('a[data-item=story-card]').eq(5);
+      cy.getItem('story-cards-section')
+        .find('a[data-item=story-card]')
+        .should('have.length', 5);
     });
     it('shows only 2 stories', () => {
-      cy.getItem('stories-filter').find('a').contains('Arts').click();
-      cy.getItem('story-cards-section').find('a[data-item=story-card]').eq(2);
+      cy.getItem('stories-filter')
+        .find('button[data-item=category-selector]')
+        .contains('Arts')
+        .click();
+      cy.getItem('story-cards-section')
+        .find('a[data-item=story-card]')
+        .should('have.length', 2);
     });
   });
   context('Checks search filtering handler', () => {
     beforeEach(() => {
-      cy.visit('/stories');
+      cy.setCookie('theme', 'dark').then(() => {
+        cy.visit('/stories');
+      });
     });
     it('can search one particular story', () => {
       cy.getItem('stories-filter').then(($filter) => {
-        cy.wrap($filter).find('button').click();
+        cy.wrap($filter).find('button[data-item=search-button]').click();
         cy.wrap($filter)
           .find('input[type=search]')
           .should('be.visible')
@@ -86,7 +95,7 @@ describe('Index and search story page', () => {
           .type('{enter}');
         cy.getItem('story-cards-section')
           .find('a[data-item=story-card]')
-          .eq(1)
+          .should('have.length', 1)
           .first()
           .find('h6')
           .contains('Future VR Development');
@@ -95,10 +104,12 @@ describe('Index and search story page', () => {
   });
   context('Checks related keyword filtering handler', () => {
     beforeEach(() => {
-      cy.visit('/stories?related=wonderwul');
+      cy.visit('/stories?search=wonderwul');
     });
     it('can show particular related keyword', () => {
-      cy.getItem('story-cards-section').find('a[data-item=story-card]').eq(3);
+      cy.getItem('story-cards-section')
+        .find('a[data-item=story-card]')
+        .should('have.length', 3);
     });
   });
 });
