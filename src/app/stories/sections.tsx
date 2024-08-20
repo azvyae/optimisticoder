@@ -11,7 +11,7 @@ function StoriesHero() {
             src={Stars}
             draggable={false}
             alt={'Stars symbol'}
-            className="dark:invert "
+            className="dark:invert"
           />
         </div>
         <div className="grid gap-4">
