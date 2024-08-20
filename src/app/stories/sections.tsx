@@ -4,7 +4,7 @@ import Image from 'next/image';
 function StoriesHero() {
   return (
     <section className="w-full relative py-8" data-item="stories-hero">
-      <div className="w-full max-w-2xl mx-auto gap-3 grid">
+      <div className="w-full max-w-2xl mx-auto gap-4 grid">
         <div className="flex gap-2 justify-center">
           <h1 className="font-medium text-center">Stories</h1>
           <Image
@@ -14,11 +14,11 @@ function StoriesHero() {
             className="dark:invert"
           />
         </div>
-        <div className="grid gap-4">
-          <h2 className="text-center text-6xl font-bold">
+        <div className="grid gap-4 w-full">
+          <h2 className="text-center text-4xl sm:text-6xl font-bold">
             Explore New Things!
           </h2>
-          <p className="text-center text-lg text-[#979797] px-16">
+          <p className="text-center text-sm sm:text-lg text-[#979797] px-4 md:px-16">
             Learn about software development, programming languages, and stay
             updated on the IT industry. Discover our latest stories, coding
             tips, tech news, career insights, and much more.

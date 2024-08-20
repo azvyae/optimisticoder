@@ -18,7 +18,7 @@ async function Page() {
   const files = await readFiles();
   const theFile = await readSomeFile();
   return (
-    <main className="flex min-h-screen h-[1500px] flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen h-[1500px] w-full flex-col items-center justify-between py-24 md:px-24">
       <BackgroundGrid />
       <StoriesHero />
     </main>
