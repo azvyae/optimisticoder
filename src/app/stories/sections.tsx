@@ -5,7 +5,7 @@ function StoriesHero() {
   return (
     <section className="w-full relative py-8" data-item="stories-hero">
       <div className="w-full max-w-2xl mx-auto gap-3 grid">
-        <div className="flex gap-4 justify-center">
+        <div className="flex gap-2 justify-center">
           <h1 className="font-medium text-center">Stories</h1>
           <Image
             src={Stars}
