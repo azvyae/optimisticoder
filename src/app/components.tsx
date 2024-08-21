@@ -117,7 +117,7 @@ function ExploreApps() {
   return (
     <section
       data-item="explore-apps-section"
-      className="relative md:px-8 w-full dark:bg-bgdark bg-[#FAFBFC]"
+      className="relative px-8 md:px-16 w-full dark:bg-bgdark bg-[#FAFBFC]"
     >
       <div className="border-l relative border-t border-r border-[#dfdfdf] dark:border-[#545454] bg-gradient-to-b w-full dark:from-primary py-16 rounded-t-xl dark:to-[#242424] from-secondary to-[#FAFBFC] px-4 md:px-32">
         <h2 className="text-center font-bold text-3xl sm:text-4xl md:text-5xl mb-8">
@@ -158,8 +158,11 @@ function MostHighlightedStory({ story }: { story?: StoriesIndexEntry }) {
     return;
   }
   return (
-    <section data-item="higlighted-story-section" className="md:px-8 py-16">
-      <div className="border-[#909090] border bg-light dark:bg-[#1f201f] dark:border-[#5d5d5d] rounded-lg overflow-hidden gap-4 grid lg:grid-cols-2">
+    <section
+      data-item="higlighted-story-section"
+      className="px-8 md:px-32 py-16"
+    >
+      <div className="border-[#909090] border shadow-primary glowing relative bg-light dark:glowing-dark dark:bg-[#1f201f] dark:border-[#5d5d5d] rounded-lg overflow-hidden gap-4 grid lg:grid-cols-2">
         <Link href={`/stories/${story.slug}`} title={`Read ${story.title}`}>
           <FallbackImage
             src={story.cover}
@@ -212,16 +215,12 @@ function MostHighlightedStory({ story }: { story?: StoriesIndexEntry }) {
 }
 
 function LatestStories({ stories }: { stories: StoriesIndexEntry[] }) {
+  if (stories.length === 0) {
+    return <></>;
+  }
   return (
     <section data-item="latest-stories-section" className="px-8 md:px-16 py-8">
-      {stories.length > 0 && (
-        <h4 className="text-left text-3xl font-bold mb-6">Latest Stories</h4>
-      )}
-      {stories.length === 0 && (
-        <p className="text-left text-3xl font-bold mb-6">
-          No published stories yet
-        </p>
-      )}
+      <h4 className="text-left text-3xl font-bold mb-6">Latest Stories</h4>
       <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-4 mb-6">
         {stories.map((index, k) => (
           <StoryCard story={index} key={k} />
