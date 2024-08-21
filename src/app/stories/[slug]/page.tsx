@@ -1,5 +1,4 @@
 export const revalidate = 86400;
-// export const dynamic = 'force-static';
 import { ShareButtons, WriterDisplay } from '@/app/stories/[slug]/components';
 import { Breadcrumbs, MarkdownUI, StoryTitle } from '@/components/common';
 import { StoryCard } from '@/components/common/story-card';
