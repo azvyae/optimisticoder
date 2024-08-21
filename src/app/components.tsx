@@ -80,7 +80,7 @@ function ExploreApps() {
         href={app.url}
         key={i}
         data-item="explore-app-card"
-        className="bg-gradient-to-t rounded-3xl p-4 gap-4 hover:brightness-95 dark:hover:brightness-105 transition-[filter] flex flex-col justify-between from-[#DFD8BC] dark:from-[#536655]/50 dark:to-[#637765]/50 backdrop-blur-lg w-full to-[#E7DFC3]"
+        className="bg-gradient-to-t rounded-3xl p-4 gap-4 hover:brightness-95 dark:hover:brightness-105 transition-[filter] flex flex-col h-fit from-[#DFD8BC] dark:from-[#536655]/50 dark:to-[#637765]/50 backdrop-blur-lg w-full to-[#E7DFC3]"
       >
         <div className="flex gap-4">
           <FallbackImage

@@ -14,7 +14,7 @@ function StoryCard({ story, className }: StoryCardProps) {
       href={`/stories/${story.slug}`}
       title={`Read ${story.title}`}
       data-item="story-card"
-      className={`border-[#909090] border dark:border-[#5d5d5d] w-full rounded overflow-hidden group flex justify-between flex-col ${className}`}
+      className={`border-[#909090] border dark:border-[#5d5d5d] w-full rounded-lg overflow-hidden group flex justify-between flex-col ${className}`}
     >
       <Image
         className="aspect-square object-cover h-full w-full"

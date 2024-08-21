@@ -35,6 +35,7 @@ function CategoryMenus({
   currentCategory?: string;
   className?: string;
 }) {
+  const categoryViewport = useRef<HTMLDivElement>(null);
   const container = useRef<HTMLDivElement>(null);
   const firstElement = useRef<HTMLButtonElement>(null);
   const lastElement = useRef<HTMLButtonElement>(null);
@@ -53,31 +54,35 @@ function CategoryMenus({
       return;
     }
     setObserver(
-      new IntersectionObserver((entries) => {
-        const type = entries[0].target.getAttribute('data-type') as
-          | 'first-element'
-          | 'last-element';
-        if (type === 'first-element') {
-          if (entries[0].isIntersecting) {
-            container?.current?.scrollBy({ left: -256, behavior: 'smooth' });
-            setShowPrev(false);
-          } else {
-            setShowPrev(true);
+      new IntersectionObserver(
+        (entries) => {
+          const type = entries[0].target.getAttribute('data-type') as
+            | 'first-element'
+            | 'last-element';
+          if (type === 'first-element') {
+            if (entries[0].isIntersecting) {
+              setShowPrev(false);
+            } else {
+              setShowPrev(true);
+            }
           }
-        }
-        if (entries.length > 1 ? entries[1] : type === 'last-element') {
-          if (
-            entries.length > 1
-              ? entries[1].isIntersecting
-              : entries[0].isIntersecting
-          ) {
-            container?.current?.scrollBy({ left: 256, behavior: 'smooth' });
-            setShowNext(false);
-          } else {
-            setShowNext(true);
+          if (entries.length > 1 ? entries[1] : type === 'last-element') {
+            if (
+              entries.length > 1
+                ? entries[1].isIntersecting
+                : entries[0].isIntersecting
+            ) {
+              setShowNext(false);
+            } else {
+              setShowNext(true);
+            }
           }
-        }
-      }),
+        },
+        {
+          root: categoryViewport.current,
+          threshold: 0.9,
+        },
+      ),
     );
   }, []);
   useEffect(() => {
@@ -116,7 +121,7 @@ function CategoryMenus({
           router.refresh();
         }}
         id={c === currentCategory ? 'active-element' : undefined}
-        className={`sm:px-4 px-2 transition-colors py-0.5 sm:py-2 duration-150 text-dark dark:text-light font-bold rounded-lg inline-block ${c === currentCategory ? 'bg-primary text-light hover:bg-primary/70 dark:hover:bg-[#92f5a738]' : 'hover:bg-[#8c8c8c53] dark:hover:bg-[#ffffff38]'}`}
+        className={`sm:px-4 px-2 focus:outline-none transition-colors py-0.5 sm:py-2 duration-150 text-dark dark:text-light font-bold rounded-lg inline-block ${c === currentCategory ? 'bg-primary text-light hover:bg-primary/70 dark:hover:bg-[#92f5a738]' : 'hover:bg-[#8c8c8c53] dark:hover:bg-[#ffffff38]'}`}
       >
         {capitalize(c)}
       </button>
@@ -124,8 +129,8 @@ function CategoryMenus({
   });
   return (
     <div
-      ref={container}
-      className={`dark:bg-bgdark w-[768px] transition-[opacity,max-width,color,background-color,border-color,text-decoration-color,fill,stroke] hide-scrollbar bg-light flex overflow-auto ease-in-out gap-1 border-2 duration-500 dark:border-[#454545] border-[#f1f1f1] text-sm md:text-base p-1 rounded-xl relative left-0 top-0 ${className}`}
+      ref={categoryViewport}
+      className={`dark:bg-bgdark w-[768px] transition-[opacity,max-width,color,background-color,border-color,text-decoration-color,fill,stroke] bg-light overflow-hidden ease-in-out border-2 duration-500 dark:border-[#454545] border-[#f1f1f1] text-sm md:text-base p-1 rounded-xl relative left-0 top-0 ${className}`}
     >
       <div
         className={`left-0 transition-opacity top-0 w-16 absolute max-h-full ${showPrev ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
@@ -133,7 +138,7 @@ function CategoryMenus({
         <button
           type="button"
           onClick={handlePrevious}
-          className="fixed w-16 h-8 sm:h-11 md:h-12 hover:brightness-95 dark:hover:brightness-150 transition-[filter] bg-gradient-to-r rounded-l-[10px] from-light to-light/0 dark:from-bgdark dark:to-bgdark/0"
+          className="absolute w-16 h-8 sm:h-11 md:h-12 hover:brightness-95 dark:hover:brightness-150 transition-[filter] bg-gradient-to-r rounded-l-[10px] from-light to-light/0 dark:from-bgdark dark:to-bgdark/0"
         />
       </div>
       <div
@@ -142,28 +147,33 @@ function CategoryMenus({
         <button
           type="button"
           onClick={handleNext}
-          className="fixed w-16 h-8 sm:h-11 md:h-12 hover:brightness-95 dark:hover:brightness-150 transition-[filter] bg-gradient-to-l rounded-r-[10px] from-light to-light/0 dark:from-bgdark dark:to-bgdark/0"
+          className="absolute w-16 h-8 sm:h-11 md:h-12 hover:brightness-95 dark:hover:brightness-150 transition-[filter] bg-gradient-to-l rounded-r-[10px] from-light to-light/0 dark:from-bgdark dark:to-bgdark/0"
         />
       </div>
-      <button
-        onClick={() => {
-          router.push(`/stories`);
-          router.refresh();
-        }}
-        data-item="category-selector"
-        data-type="first-element"
-        id={!currentCategory ? 'active-element' : undefined}
-        ref={firstElement}
-        className={`sm:px-4 px-2 transition-colors duration-150 py-0.5 sm:py-2 text-dark dark:text-light font-bold rounded-lg  ${!currentCategory ? 'bg-primary text-light hover:bg-primary/70 dark:hover:bg-[#92f5a738]' : 'hover:bg-[#8c8c8c53] dark:hover:bg-[#ffffff38]'}`}
+      <div
+        ref={container}
+        className="flex overflow-auto hide-scrollbar rounded-md gap-1"
       >
-        All
-      </button>
-      {categoryLinks}
+        <button
+          onClick={() => {
+            router.push(`/stories`);
+            router.refresh();
+          }}
+          data-item="category-selector"
+          data-type="first-element"
+          id={!currentCategory ? 'active-element' : undefined}
+          ref={firstElement}
+          className={`sm:px-4 px-2 focus:outline-none transition-colors duration-150 py-0.5 sm:py-2 text-dark dark:text-light font-bold rounded-lg  ${!currentCategory ? 'bg-primary text-light hover:bg-primary/70 dark:hover:bg-[#92f5a738]' : 'hover:bg-[#8c8c8c53] dark:hover:bg-[#ffffff38]'}`}
+        >
+          All
+        </button>
+        {categoryLinks}
+      </div>
     </div>
   );
 }
 
-const SearchInput = forwardRef(function (
+const SearchInput = forwardRef(function SearchInput(
   {
     search,
     className,
@@ -198,7 +208,7 @@ const SearchInput = forwardRef(function (
         required
         minLength={3}
         onFocus={(e) => e.currentTarget.select()}
-        className={`dark:bg-bgdark w-[768px] focus:outline-none focus:ring-1 dark:focus:ring-[#808080] focus:ring-[#878787] px-4 transition-[opacity,max-width,color,background-color,border-color,text-decoration-color,fill,stroke]  bg-light ease-in-out border-2 duration-500 dark:border-[#454545] border-[#f1f1f1] rounded-xl relative left-0 -top-9 sm:-top-12 md:-top-[52px] h-9 sm:h-12 md:h-[52px] ${className}`}
+        className={`dark:bg-bgdark w-[768px] focus:outline-none focus:ring-1 dark:focus:ring-[#808080] focus:ring-[#878787] px-2 sm:px-4 transition-[opacity,max-width,color,background-color,border-color,text-decoration-color,fill,stroke]  bg-light ease-in-out border-2 duration-500 dark:border-[#454545] border-[#f1f1f1] rounded-xl text-sm sm:text-base relative left-0 -top-9 sm:-top-12 md:-top-[52px] h-9 sm:h-12 md:h-[52px] ${className}`}
       />
     </form>
   );
@@ -218,7 +228,7 @@ function FilteringHandler({
   const router = useRouter();
   return (
     <>
-      <div className="relative w-full max-w-[50vw] md:max-w-3xl">
+      <div className="relative w-full max-w-[70vw] md:max-w-3xl">
         <CategoryMenus
           className={
             showSearch
