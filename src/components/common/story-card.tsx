@@ -1,6 +1,6 @@
-import { capitalize } from '@/helpers/common';
+import { FallbackImage } from '@/components/image';
+import { capitalize, generateFallbackImage } from '@/helpers/common';
 import type { StoriesIndexEntry } from '@/types/common';
-import Image from 'next/image';
 import Link from 'next/link';
 
 interface StoryCardProps {
@@ -14,14 +14,15 @@ function StoryCard({ story, className }: StoryCardProps) {
       href={`/stories/${story.slug}`}
       title={`Read ${story.title}`}
       data-item="story-card"
-      className={`border-[#909090] border dark:border-[#5d5d5d] w-full rounded-lg overflow-hidden group flex justify-between flex-col ${className}`}
+      className={`border-[#909090] border bg-light dark:bg-[#000] dark:border-[#5d5d5d] w-full rounded-lg overflow-hidden group flex justify-between flex-col ${className}`}
     >
-      <Image
-        className="aspect-square object-cover h-full w-full"
+      <FallbackImage
         src={story.cover}
         width={512}
         height={512}
         alt={`Thumbnail of ${story.title}`}
+        className="aspect-square object-cover h-full w-full"
+        fallback={generateFallbackImage(story.title)}
       />
       <hr className="text-[#909090] dark:text-[#5d5d5d]" />
       <div className="p-6 group-hover:dark:bg-[#1f1f1f] group-hover:bg-[#ececec] grid gap-4">
@@ -48,7 +49,7 @@ function StoryCard({ story, className }: StoryCardProps) {
         >
           {story.excerpt}
         </p>
-        <span className="hover:underline border text-sm sm:text-base bg-light dark:bg-bgdark w-fit px-4 py-2 rounded-sm">
+        <span className="hover:underline border text-sm sm:text-base bg-light dark:bg-[#000] w-fit px-4 py-2 rounded-sm">
           Read More &gt;
         </span>
       </div>

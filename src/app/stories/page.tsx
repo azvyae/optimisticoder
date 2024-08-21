@@ -44,19 +44,19 @@ async function Page({ searchParams }: StoriesPageParams) {
   if (searchParams.category && searchParams.search) {
     return redirect(`/stories?search=${searchParams.search}`);
   }
-  if (
-    (Number.isInteger(page) && page < 1) ||
-    (typeof searchParams.page !== 'undefined' && Number.isNaN(page))
-  ) {
+  if (Number.isInteger(page) && (page < 1 || page > 10)) {
+    return redirect(`/stories`);
+  }
+  if (typeof searchParams.page !== 'undefined' && Number.isNaN(page)) {
     return redirect(`/stories`);
   }
   return (
-    <main className="flex w-full flex-col items-center justify-between py-24 md:px-24">
+    <main className="flex w-full flex-col items-center justify-between pt-[72px] md:px-24">
       <BackgroundGrid />
       <StoriesHero />
       <FilteringSection {...searchParams} />
       <StoriesSection
-        page={page}
+        page={Number.isNaN(page) ? 1 : page}
         category={searchParams.category}
         search={searchParams.search}
       />

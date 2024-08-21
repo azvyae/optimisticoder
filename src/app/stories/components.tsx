@@ -21,7 +21,7 @@ function BackgroundGrid() {
           backgroundImage: `linear-gradient(to right, #8b8b8b49 1px, transparent 1px), linear-gradient(to bottom, #8b8b8b49 1px, transparent 1px)`,
         }}
       />
-      <div className="w-full h-[70vh] absolute bg-gradient-to-t from-light via-[#fff0] to-[#fff0] dark:from-bgdark dark:via-[#24242400] dark:to-[#24242400]" />
+      <div className="w-full h-[70vh] absolute bg-gradient-to-t from-[#FAFBFC] via-[#fff0] to-[#fff0] dark:from-bgdark dark:via-[#24242400] dark:to-[#24242400]" />
     </>
   );
 }
@@ -130,7 +130,7 @@ function CategoryMenus({
   return (
     <div
       ref={categoryViewport}
-      className={`dark:bg-bgdark w-[768px] transition-[opacity,max-width,color,background-color,border-color,text-decoration-color,fill,stroke] bg-light overflow-hidden ease-in-out border-2 duration-500 dark:border-[#454545] border-[#f1f1f1] text-sm md:text-base p-1 rounded-xl relative left-0 top-0 ${className}`}
+      className={`dark:bg-bgdark w-[768px] transition-[opacity,max-width,color,background-color,border-color,text-decoration-color,fill,stroke] bg-[#FAFBFC] overflow-hidden ease-in-out border-2 duration-500 dark:border-[#454545] border-[#f1f1f1] text-sm md:text-base p-1 rounded-xl relative left-0 top-0 ${className}`}
     >
       <div
         className={`left-0 transition-opacity top-0 w-16 absolute max-h-full ${showPrev ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
@@ -138,7 +138,7 @@ function CategoryMenus({
         <button
           type="button"
           onClick={handlePrevious}
-          className="absolute w-16 h-8 sm:h-11 md:h-12 hover:brightness-95 dark:hover:brightness-150 transition-[filter] bg-gradient-to-r rounded-l-[10px] from-light to-light/0 dark:from-bgdark dark:to-bgdark/0"
+          className="absolute w-16 h-8 sm:h-11 md:h-12 hover:brightness-95 dark:hover:brightness-150 transition-[filter] bg-gradient-to-r rounded-l-[10px] from-[#FAFBFC] to-[#FAFBFC]/0 dark:from-bgdark dark:to-bgdark/0"
         />
       </div>
       <div
@@ -147,7 +147,7 @@ function CategoryMenus({
         <button
           type="button"
           onClick={handleNext}
-          className="absolute w-16 h-8 sm:h-11 md:h-12 hover:brightness-95 dark:hover:brightness-150 transition-[filter] bg-gradient-to-l rounded-r-[10px] from-light to-light/0 dark:from-bgdark dark:to-bgdark/0"
+          className="absolute w-16 h-8 sm:h-11 md:h-12 hover:brightness-95 dark:hover:brightness-150 transition-[filter] bg-gradient-to-l rounded-r-[10px] from-[#FAFBFC] to-[#FAFBFC]/0 dark:from-bgdark dark:to-bgdark/0"
         />
       </div>
       <div
@@ -208,7 +208,7 @@ const SearchInput = forwardRef(function SearchInput(
         required
         minLength={3}
         onFocus={(e) => e.currentTarget.select()}
-        className={`dark:bg-bgdark w-[768px] focus:outline-none focus:ring-1 dark:focus:ring-[#808080] focus:ring-[#878787] px-2 sm:px-4 transition-[opacity,max-width,color,background-color,border-color,text-decoration-color,fill,stroke]  bg-light ease-in-out border-2 duration-500 dark:border-[#454545] border-[#f1f1f1] rounded-xl text-sm sm:text-base relative left-0 -top-9 sm:-top-12 md:-top-[52px] h-9 sm:h-12 md:h-[52px] ${className}`}
+        className={`dark:bg-bgdark w-[768px] focus:outline-none focus:ring-1 dark:focus:ring-[#808080] focus:ring-[#878787] px-2 sm:px-4 transition-[opacity,max-width,color,background-color,border-color,text-decoration-color,fill,stroke]  bg-[#FAFBFC] ease-in-out border-2 duration-500 dark:border-[#454545] border-[#f1f1f1] rounded-xl text-sm sm:text-base relative left-0 -top-9 sm:-top-12 md:-top-[52px] h-9 sm:h-12 md:h-[52px] ${className}`}
       />
     </form>
   );
@@ -249,7 +249,7 @@ function FilteringHandler({
         />
       </div>
       <button
-        className={`border-2 h-9 sm:h-12 md:h-[52px] rounded-xl flex justify-center items-center aspect-square transition-colors duration-500 relative dark:border-[#454545] border-[#f1f1f1] ${showSearch ? 'dark:bg-primary bg-[rgb(170,203,154)] hover:bg-[#bccbb5] dark:hover:bg-[#293723]' : 'dark:bg-bgdark bg-light hover:bg-[#e5e5e5] dark:hover:bg-[#313131]'}`}
+        className={`border-2 h-9 sm:h-12 md:h-[52px] rounded-xl flex justify-center items-center aspect-square transition-colors duration-500 relative dark:border-[#454545] border-[#f1f1f1] ${showSearch ? 'dark:bg-primary bg-[rgb(170,203,154)] hover:bg-[#bccbb5] dark:hover:bg-[#293723]' : 'dark:bg-bgdark bg-[#FAFBFC] hover:bg-[#e5e5e5] dark:hover:bg-[#313131]'}`}
         type="button"
         title="Search"
         data-item="search-button"

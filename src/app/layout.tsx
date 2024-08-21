@@ -50,7 +50,7 @@ export default function Root({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={defaultTheme === 'dark' ? 'dark' : ''}>
       <body
-        className={`${jebrainsMono.variable} ${ebGaramond.variable} transition-colors duration-500 bg-light dark:bg-bgdark`}
+        className={`${jebrainsMono.variable} ${ebGaramond.variable} transition-colors duration-500 bg-[#FAFBFC] dark:bg-bgdark`}
       >
         <Navbar />
 

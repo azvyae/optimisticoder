@@ -1,28 +1,34 @@
 import { FilteringHandler } from '@/app/stories/components';
 import { StoryCard } from '@/components/common/story-card';
 import { STORIES_DIR } from '@/config/common';
-import type { StoriesIndexEntry } from '@/types/common';
+import type { StoriesIndexEntry, StoriesMeta } from '@/types/common';
 import Stars from '@public/static/svg/stars.svg';
 import { readFileSync } from 'fs';
 import jsonata from 'jsonata';
 import Image from 'next/image';
-import { notFound } from 'next/navigation';
+import Link from 'next/link';
+import { notFound, redirect } from 'next/navigation';
 import path from 'path';
+import { cache } from 'react';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
-async function listCategories() {
+const checkMeta = cache(async function checkMeta() {
   try {
-    const indexCategories: string[] = JSON.parse(
+    const indexMeta: StoriesMeta = JSON.parse(
       readFileSync(
-        path.join(process.cwd(), STORIES_DIR, 'index-categories.json'),
+        path.join(process.cwd(), STORIES_DIR, 'index-meta.json'),
       ).toString(),
     );
     const expression = jsonata(`$[]`);
-    const result: string[] = await expression.evaluate(indexCategories);
+    const result: StoriesMeta = await expression.evaluate(indexMeta);
     return result;
   } catch (error) {
-    return [];
+    return {
+      totalStories: 0,
+      categories: [],
+    };
   }
-}
+});
 
 async function listStories(
   page = 1,
@@ -35,16 +41,29 @@ async function listStories(
         path.join(process.cwd(), STORIES_DIR, 'index-stories.json'),
       ).toString(),
     );
-    const expression = jsonata(`$[]`);
+    const meta = await checkMeta();
+    let query = `$[]`;
+    switch (key) {
+      case 'category':
+        query = `$[category="${value}"]`;
+        break;
+      case 'search':
+        query = `$[$contains(title,/${value}/i) or keywords[$contains($,/${value}/i)]][]`;
+        break;
+    }
+    const expression = jsonata(query);
     const result: StoriesIndexEntry[] = await expression.evaluate(indexStories);
+
     return {
-      total: indexStories.length,
-      result: result,
+      total: query === `$[]` ? meta.totalStories : result.length,
+      result: result.slice((page - 1) * 6, 6 * page) ?? [],
+      maxPage: Math.ceil(result.length / 6),
     };
   } catch (error) {
     return {
       total: 0,
       result: [],
+      maxPage: 0,
     };
   }
 }
@@ -84,20 +103,80 @@ async function FilteringSection({
   category?: string;
   search?: string;
 }) {
-  const categories = await listCategories();
-  if (category && !categories.includes(category)) {
+  const meta = await checkMeta();
+  if (category && !meta.categories.includes(category)) {
     return notFound();
   }
   return (
     <section data-item="stories-filter" className="relative px-2 w-full">
       <div className="flex max-w-full md:max-w-3xl justify-center gap-2 sm:gap-12 mx-auto">
         <FilteringHandler
-          categories={categories}
+          categories={meta.categories}
           category={category}
           search={search}
         />
       </div>
     </section>
+  );
+}
+
+function Pagination({
+  total,
+  key,
+  currentPage,
+  value,
+}: {
+  total: number;
+  currentPage: number;
+  key?: string;
+  value?: string;
+}) {
+  const links = [];
+  let params = '';
+  if (key) {
+    params = `${params}${key}=`;
+  }
+  if (value) {
+    params = `${params}${value}`;
+  }
+  for (
+    let index = 0;
+    index < (total < 60 ? Math.ceil(total / 6) : 10);
+    index++
+  ) {
+    links.push(
+      <Link
+        key={index}
+        title={`Go to page ${index + 1}`}
+        className={`dark:border-[#454545] border-[#bababa] border rounded aspect-square flex justify-center items-center w-10 h-10 ${currentPage === index + 1 ? 'bg-primary text-light hover:bg-primary/70 dark:hover:bg-[#92f5a738]' : 'dark:bg-[#000] bg-[#FAFBFC] hover:bg-[#efefef] dark:hover:bg-dark'}`}
+        href={`/stories?${params}&page=${index + 1}`}
+      >
+        {index + 1}
+      </Link>,
+    );
+  }
+  return (
+    <>
+      {currentPage > 1 && (
+        <Link
+          title="Previous page"
+          className={`dark:border-[#454545] border-[#bababa] border rounded aspect-square flex justify-center items-center w-10 h-10 dark:bg-[#000] bg-[#FAFBFC] hover:bg-[#efefef] dark:hover:bg-dark`}
+          href={`/stories?${params}&page=${currentPage - 1}`}
+        >
+          <FiChevronLeft />
+        </Link>
+      )}
+      {links}
+      {currentPage < links.length && (
+        <Link
+          title="Next page"
+          className={`dark:border-[#454545] border-[#bababa] border rounded aspect-square flex justify-center items-center w-10 h-10 dark:bg-[#000] bg-[#FAFBFC] hover:bg-[#efefef] dark:hover:bg-dark`}
+          href={`/stories?${params}&page=${currentPage + 1}`}
+        >
+          <FiChevronRight />
+        </Link>
+      )}
+    </>
   );
 }
 
@@ -110,20 +189,50 @@ async function StoriesSection({
   category?: string;
   search?: string;
 }) {
-  const stories = await listStories(
-    page,
-    category ? 'category' : search ? 'search' : undefined,
-    category ? category : search ? search : undefined,
-  );
+  const key = category ? 'category' : search ? 'search' : undefined;
+  const value = category ? category : search ? search : undefined;
+  const stories = await listStories(page, key, value);
+
+  if (page > stories.maxPage) {
+    let params = '';
+    if (key) {
+      params = `${params}${key}=`;
+    }
+    if (value) {
+      params = `${params}${value}`;
+    }
+    return redirect(`/stories?${params}`);
+  }
 
   const storyCards = stories.result.map((story, i) => (
     <StoryCard story={story} key={i} />
   ));
+
   return (
     <section className="relative px-8">
-      <div className="grid sm:grid-cols-2 max-w-7xl xl:grid-cols-3 gap-8 xl:gap-16">
-        {storyCards}
-      </div>
+      {stories.result.length > 0 && (
+        <>
+          <div className="grid sm:grid-cols-2 max-w-7xl xl:grid-cols-3 gap-8 xl:gap-16">
+            {storyCards}
+          </div>
+          <div className="flex w-full justify-center pt-12 pb-4 gap-2 flex-wrap">
+            <Pagination
+              currentPage={page}
+              total={stories.total}
+              key={key}
+              value={value}
+            />
+          </div>
+        </>
+      )}
+      {stories.result.length === 0 && (
+        <>
+          <p className="text-3xl">
+            No stories found
+            {search && <span> with keyword &quot;{search}&quot;</span>}
+          </p>
+        </>
+      )}
     </section>
   );
 }
