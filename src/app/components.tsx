@@ -119,7 +119,7 @@ function ExploreApps() {
       data-item="explore-apps-section"
       className="relative px-8 md:px-16 w-full dark:bg-bgdark bg-[#FAFBFC]"
     >
-      <div className="border-l relative border-t border-r border-[#dfdfdf] dark:border-[#545454] bg-gradient-to-b w-full dark:from-primary py-16 rounded-t-xl dark:to-[#242424] from-secondary to-[#FAFBFC] px-4 md:px-32">
+      <div className="border border-[#dfdfdf] dark:border-[#545454] bg-gradient-to-b w-full dark:from-primary py-16 rounded-t-xl dark:to-[#242424] from-secondary to-[#FAFBFC] px-4 md:px-32">
         <h2 className="text-center font-bold text-3xl sm:text-4xl md:text-5xl mb-8">
           Explore Apps
         </h2>
