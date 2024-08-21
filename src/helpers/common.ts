@@ -14,7 +14,15 @@ function formatDate(date: Date) {
 }
 
 function generateFallbackImage(initials: string) {
-  return `https://api.dicebear.com/9.x/icons/jpg?seed=${encodeURIComponent(initials)}`;
+  let hash = 0;
+  for (let i = 0; i < initials.length; i++) {
+    hash = initials.charCodeAt(i) + ((hash << 5) - hash);
+    hash = hash & hash; // Convert to 32bit integer
+  }
+
+  // Use the hash to create a pseudo-random number between 0 and 9
+  const randomNum = Math.abs(hash % 10);
+  return `/static/fallback/${randomNum}.jpg`;
 }
 
 function isMobileBrowser() {

@@ -98,9 +98,9 @@ function NavigationMobile({ defaultTheme }: { defaultTheme: Theme }) {
           navOpen ? (
             <div
               data-item="mobile-nav"
-              className="fixed top-0 flex flex-col justify-between w-screen h-screen text-lg mt-[72px] z-20 bg-[#fff] dark:bg-bgdark md:hidden"
+              className="fixed top-0 transition-colors duration-500 flex flex-col justify-between w-screen h-screen text-lg mt-[72px] z-20 bg-[#FAFBFC] dark:bg-bgdark md:hidden"
             >
-              <div className="relative top-0 flex flex-col w-full h-full gap-2 pt-4 pb-64 overflow-y-auto bg-[#fff] dark:bg-bgdark">
+              <div className="relative top-0 transition-colors duration-500 flex flex-col w-full h-full gap-2 pt-4 pb-64 overflow-y-auto bg-[#FAFBFC] dark:bg-bgdark">
                 <NavigationLinks defaultTheme={defaultTheme} />
               </div>
             </div>

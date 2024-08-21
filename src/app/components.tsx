@@ -14,7 +14,7 @@ function Hero() {
   return (
     <section
       data-item="hero-section"
-      className="relative h-fit sm:min-h-[50vh] overflow-hidden bg-gradient-to-b dark:from-[#000] to-light from-[#dbd0ff] dark:to-bgdark w-full"
+      className="relative h-fit sm:min-h-[50vh] overflow-hidden bg-gradient-to-b dark:from-[#000] to-[#FAFBFC] from-[#dbd0ff] dark:to-bgdark w-full"
     >
       <div className="aurora-animation">
         <div className="transition-colors bg-[#2856ba] dark:bg-[#6189de] sm:-bottom-8 h-14 sm:h-32" />
@@ -80,7 +80,7 @@ function ExploreApps() {
         href={app.url}
         key={i}
         data-item="explore-app-card"
-        className="bg-gradient-to-t rounded-3xl p-4 gap-4 hover:brightness-95 dark:hover:brightness-105 transition-[filter] flex flex-col justify-between from-[#DFD8BC] dark:from-[#536655]/50 dark:to-[#637765]/50 backdrop-blur-lg w-full to-[#E7DFC3]"
+        className="bg-gradient-to-t rounded-3xl p-4 gap-4 hover:brightness-95 dark:hover:brightness-105 transition-[filter] flex flex-col h-fit from-[#DFD8BC] dark:from-[#536655]/50 dark:to-[#637765]/50 backdrop-blur-lg w-full to-[#E7DFC3]"
       >
         <div className="flex gap-4">
           <FallbackImage
@@ -117,9 +117,9 @@ function ExploreApps() {
   return (
     <section
       data-item="explore-apps-section"
-      className="relative md:px-8 w-full dark:bg-bgdark bg-light"
+      className="relative md:px-8 w-full dark:bg-bgdark bg-[#FAFBFC]"
     >
-      <div className="border-l relative border-t border-r border-[#dfdfdf] dark:border-[#545454] bg-gradient-to-b w-full dark:from-primary py-16 rounded-t-xl dark:to-[#242424] from-secondary to-light px-4 md:px-32">
+      <div className="border-l relative border-t border-r border-[#dfdfdf] dark:border-[#545454] bg-gradient-to-b w-full dark:from-primary py-16 rounded-t-xl dark:to-[#242424] from-secondary to-[#FAFBFC] px-4 md:px-32">
         <h2 className="text-center font-bold text-3xl sm:text-4xl md:text-5xl mb-8">
           Explore Apps
         </h2>
@@ -139,7 +139,7 @@ function ExploreApps() {
           </div>
         </div>
         <div
-          className={`absolute ${hideAll ? 'opacity-100' : 'opacity-0'} pointer-events-none h-1/2 select-none duration-700 transition-opacity w-full bg-gradient-to-b bottom-0 left-0 from-light/0 via-light/90 dark:via-bgdark/90 to-light dark:to-bgdark/100`}
+          className={`absolute ${hideAll ? 'opacity-100' : 'opacity-0'} pointer-events-none h-1/2 select-none duration-700 transition-opacity w-full bg-gradient-to-b bottom-0 left-0 from-[#FAFBFC]/0 via-[#FAFBFC]/90 dark:via-bgdark/90 to-[#FAFBFC] dark:to-bgdark/100`}
         />
       </div>
       <button
@@ -159,14 +159,15 @@ function MostHighlightedStory({ story }: { story?: StoriesIndexEntry }) {
   }
   return (
     <section data-item="higlighted-story-section" className="md:px-8 py-16">
-      <div className="border-[#909090] border dark:border-[#5d5d5d] rounded-lg overflow-hidden gap-4 grid lg:grid-cols-2">
+      <div className="border-[#909090] border bg-light dark:bg-[#1f201f] dark:border-[#5d5d5d] rounded-lg overflow-hidden gap-4 grid lg:grid-cols-2">
         <Link href={`/stories/${story.slug}`} title={`Read ${story.title}`}>
-          <Image
+          <FallbackImage
             src={story.cover}
-            className="w-full h-full object-cover border-[#909090] lg:border-r border-b dark:border-[#5d5d5d]"
+            className="w-full h-full object-cover aspect-[4/3] border-[#909090] lg:border-r border-b dark:border-[#5d5d5d]"
             alt={`Thumbnail of ${story.title}`}
             width={512}
-            height={512}
+            height={256}
+            fallback={generateFallbackImage(story.title)}
           />
         </Link>
         <div className="px-6 py-8 group-hover:dark:bg-[#1f1f1f] group-hover:bg-[#ececec] flex flex-col gap-8 justify-between">
@@ -174,7 +175,7 @@ function MostHighlightedStory({ story }: { story?: StoriesIndexEntry }) {
             <p className="text-sm sm:text-base">
               <span
                 title="Story category"
-                className="bg-[#000] inline truncate text-light dark:bg-light dark:text-dark rounded-sm py-1 px-2"
+                className="bg-[#000] inline truncate text-light dark:bg-[#FAFBFC] dark:text-dark rounded-sm py-1 px-2"
               >
                 {capitalize(story.category)}
               </span>{' '}
@@ -200,7 +201,7 @@ function MostHighlightedStory({ story }: { story?: StoriesIndexEntry }) {
           <Link
             href={`/stories/${story.slug}`}
             title={`Read ${story.title}`}
-            className="hover:underline border text-sm sm:text-base bg-light dark:bg-bgdark w-fit px-4 py-2 rounded-sm"
+            className="hover:underline border text-sm sm:text-base bg-light dark:bg-[#1f201f] w-fit px-4 py-2 rounded-sm"
           >
             Read More &gt;
           </Link>

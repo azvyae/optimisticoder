@@ -15,11 +15,7 @@ const storiesIndexerPath = path.join(
   storiesDir,
   'index-stories.json',
 );
-const categoryIndexerPath = path.join(
-  process.cwd(),
-  storiesDir,
-  'index-categories.json',
-);
+const storiesMetaPath = path.join(process.cwd(), storiesDir, 'index-meta.json');
 
 const generatedSitemapFilePath = path.join(
   process.cwd(),
@@ -153,11 +149,18 @@ async function indexFiles() {
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   );
 
-  fs.writeFileSync(storiesIndexerPath, JSON.stringify(storiesIndex, null, 2));
   fs.writeFileSync(
-    categoryIndexerPath,
-    JSON.stringify(categoriesIndex, null, 2),
+    storiesMetaPath,
+    JSON.stringify(
+      {
+        totalStories: storiesIndex.length,
+        categories: categoriesIndex,
+      },
+      null,
+      2,
+    ),
   );
+  fs.writeFileSync(storiesIndexerPath, JSON.stringify(storiesIndex, null, 2));
   console.info('Indexing complete. Check index file for results.');
 }
 

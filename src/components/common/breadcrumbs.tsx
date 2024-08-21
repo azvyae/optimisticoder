@@ -21,7 +21,7 @@ function Breadcrumbs({ links }: BreadcrumbsProps) {
         src={Stars}
         draggable={false}
         alt={'Stars symbol'}
-        className="dark:invert "
+        className="dark:invert"
       />
       <div className="flex flex-wrap gap-x-3 text-sm sm:text-base md:gap-x-4 !leading-4 gap-y-2">
         {links.map((item, i, arr) => {

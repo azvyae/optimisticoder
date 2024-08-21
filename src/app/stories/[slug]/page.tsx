@@ -1,5 +1,4 @@
 export const revalidate = 86400;
-// export const dynamic = 'force-static';
 import { ShareButtons, WriterDisplay } from '@/app/stories/[slug]/components';
 import { Breadcrumbs, MarkdownUI, StoryTitle } from '@/components/common';
 import { StoryCard } from '@/components/common/story-card';
@@ -132,7 +131,7 @@ async function Page({ params: { slug } }: Props) {
               <Link
                 key={i}
                 className="bg-[#D9D9D9] hover:bg-[#bbbbbb] hover:dark:bg-[#6b6b6b] dark:bg-[#4d4d4d] transition-colors rounded-lg px-2"
-                href={`/stories?related=${keyword}`}
+                href={`/stories?search=${keyword}`}
                 title={`See stories related with ${keyword}`}
               >
                 {keyword}
