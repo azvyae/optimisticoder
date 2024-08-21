@@ -40,17 +40,23 @@ export async function generateMetadata(
 }
 
 async function Page({ searchParams }: StoriesPageParams) {
+  const page = Number.parseInt(searchParams.page ?? '');
   if (searchParams.category && searchParams.search) {
     return redirect(`/stories?search=${searchParams.search}`);
   }
-  const page = Number.parseInt(searchParams.page ?? '1');
+  if (
+    (Number.isInteger(page) && page < 1) ||
+    (typeof searchParams.page !== 'undefined' && Number.isNaN(page))
+  ) {
+    return redirect(`/stories`);
+  }
   return (
     <main className="flex w-full flex-col items-center justify-between py-24 md:px-24">
       <BackgroundGrid />
       <StoriesHero />
       <FilteringSection {...searchParams} />
       <StoriesSection
-        page={page < 1 ? 1 : page}
+        page={page}
         category={searchParams.category}
         search={searchParams.search}
       />
