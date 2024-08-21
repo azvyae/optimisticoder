@@ -214,7 +214,14 @@ function MostHighlightedStory({ story }: { story?: StoriesIndexEntry }) {
 function LatestStories({ stories }: { stories: StoriesIndexEntry[] }) {
   return (
     <section data-item="latest-stories-section" className="px-8 md:px-16 py-8">
-      <h4 className="text-left text-3xl font-bold mb-6">Latest Stories</h4>
+      {stories.length > 0 && (
+        <h4 className="text-left text-3xl font-bold mb-6">Latest Stories</h4>
+      )}
+      {stories.length === 0 && (
+        <p className="text-left text-3xl font-bold mb-6">
+          No published stories yet
+        </p>
+      )}
       <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-4 mb-6">
         {stories.map((index, k) => (
           <StoryCard story={index} key={k} />

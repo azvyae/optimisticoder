@@ -7,7 +7,7 @@ import { readFileSync } from 'fs';
 import jsonata from 'jsonata';
 import Image from 'next/image';
 import Link from 'next/link';
-import { notFound, redirect } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import path from 'path';
 import { cache } from 'react';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
@@ -53,17 +53,17 @@ async function listStories(
     }
     const expression = jsonata(query);
     const result: StoriesIndexEntry[] = await expression.evaluate(indexStories);
-
+    const maxPage = Math.ceil(result.length / 6);
     return {
       total: query === `$[]` ? meta.totalStories : result.length,
       result: result.slice((page - 1) * 6, 6 * page) ?? [],
-      maxPage: Math.ceil(result.length / 6),
+      maxPage: maxPage === 0 ? 1 : maxPage,
     };
   } catch (error) {
     return {
       total: 0,
       result: [],
-      maxPage: 0,
+      maxPage: 1,
     };
   }
 }
@@ -105,7 +105,7 @@ async function FilteringSection({
 }) {
   const meta = await checkMeta();
   if (category && !meta.categories.includes(category)) {
-    return notFound();
+    return redirect('/stories');
   }
   return (
     <section data-item="stories-filter" className="relative px-2 w-full">
