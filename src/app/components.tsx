@@ -159,7 +159,7 @@ function MostHighlightedStory({ story }: { story?: StoriesIndexEntry }) {
   }
   return (
     <section data-item="higlighted-story-section" className="md:px-8 py-16">
-      <div className="border-[#909090] border bg-light dark:bg-[#000] dark:border-[#5d5d5d] rounded-lg overflow-hidden gap-4 grid lg:grid-cols-2">
+      <div className="border-[#909090] border bg-light dark:bg-[#1f201f] dark:border-[#5d5d5d] rounded-lg overflow-hidden gap-4 grid lg:grid-cols-2">
         <Link href={`/stories/${story.slug}`} title={`Read ${story.title}`}>
           <FallbackImage
             src={story.cover}
@@ -201,7 +201,7 @@ function MostHighlightedStory({ story }: { story?: StoriesIndexEntry }) {
           <Link
             href={`/stories/${story.slug}`}
             title={`Read ${story.title}`}
-            className="hover:underline border text-sm sm:text-base bg-light dark:bg-[#000] w-fit px-4 py-2 rounded-sm"
+            className="hover:underline border text-sm sm:text-base bg-light dark:bg-[#1f201f] w-fit px-4 py-2 rounded-sm"
           >
             Read More &gt;
           </Link>

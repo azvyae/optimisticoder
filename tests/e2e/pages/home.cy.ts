@@ -1,6 +1,8 @@
 describe('Checking home page', () => {
   beforeEach(() => {
-    cy.visit('/');
+    cy.setCookie('theme', 'light').then(() => {
+      cy.visit('/');
+    });
   });
   context('Hero section', () => {
     it('has main heading', () => {

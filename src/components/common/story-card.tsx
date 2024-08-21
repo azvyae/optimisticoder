@@ -14,7 +14,7 @@ function StoryCard({ story, className }: StoryCardProps) {
       href={`/stories/${story.slug}`}
       title={`Read ${story.title}`}
       data-item="story-card"
-      className={`border-[#909090] border bg-light dark:bg-[#000] dark:border-[#5d5d5d] w-full rounded-lg overflow-hidden group flex justify-between flex-col ${className}`}
+      className={`border-[#909090] border bg-light dark:bg-[#1f201f] dark:border-[#5d5d5d] w-full rounded-lg overflow-hidden group flex justify-between flex-col ${className}`}
     >
       <FallbackImage
         src={story.cover}
@@ -49,7 +49,7 @@ function StoryCard({ story, className }: StoryCardProps) {
         >
           {story.excerpt}
         </p>
-        <span className="hover:underline border text-sm sm:text-base bg-light dark:bg-[#000] w-fit px-4 py-2 rounded-sm">
+        <span className="hover:underline border text-sm sm:text-base bg-light dark:bg-[#1f201f] w-fit px-4 py-2 rounded-sm">
           Read More &gt;
         </span>
       </div>

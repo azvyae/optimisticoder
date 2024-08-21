@@ -42,7 +42,9 @@ describe('Checking footer', () => {
     },
   ];
   beforeEach(() => {
-    cy.visit('/');
+    cy.setCookie('theme', 'light').then(() => {
+      cy.visit('/');
+    });
   });
 
   it('has optimisticoder logo', () => {

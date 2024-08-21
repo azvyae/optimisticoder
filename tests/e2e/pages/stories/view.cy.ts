@@ -1,6 +1,8 @@
 describe('View story page', () => {
   beforeEach(() => {
-    cy.visit('/stories/hello-world-everybody');
+    cy.setCookie('theme', 'light').then(() => {
+      cy.visit('/stories/hello-world-everybody');
+    });
   });
   context('Checks story header', () => {
     it('has breadcrumbs', () => {

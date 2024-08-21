@@ -45,7 +45,7 @@ async function listStories(
     let query = `$[]`;
     switch (key) {
       case 'category':
-        query = `$[category="${value}"]`;
+        query = `$[category="${value}"][]`;
         break;
       case 'search':
         query = `$[$contains(title,/${value}/i) or keywords[$contains($,/${value}/i)]][]`;
@@ -122,19 +122,19 @@ async function FilteringSection({
 
 function Pagination({
   total,
-  key,
+  queryKey,
   currentPage,
   value,
 }: {
   total: number;
   currentPage: number;
-  key?: string;
+  queryKey?: string;
   value?: string;
 }) {
   const links = [];
   let params = '';
-  if (key) {
-    params = `${params}${key}=`;
+  if (queryKey) {
+    params = `${params}${queryKey}=`;
   }
   if (value) {
     params = `${params}${value}`;
@@ -209,7 +209,7 @@ async function StoriesSection({
   ));
 
   return (
-    <section className="relative px-8">
+    <section className="relative px-8" data-item="story-cards-section">
       {stories.result.length > 0 && (
         <>
           <div className="grid sm:grid-cols-2 max-w-7xl xl:grid-cols-3 gap-8 xl:gap-16">
@@ -219,7 +219,7 @@ async function StoriesSection({
             <Pagination
               currentPage={page}
               total={stories.total}
-              key={key}
+              queryKey={key}
               value={value}
             />
           </div>

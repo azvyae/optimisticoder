@@ -104,7 +104,9 @@ describe('Index and search story page', () => {
   });
   context('Checks related keyword filtering handler', () => {
     beforeEach(() => {
-      cy.visit('/stories?search=wonderwul');
+      cy.setCookie('theme', 'light').then(() => {
+        cy.visit('/stories?search=wonderwul');
+      });
     });
     it('can show particular related keyword', () => {
       cy.getItem('story-cards-section')
