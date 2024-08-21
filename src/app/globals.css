@@ -75,6 +75,34 @@
     position: absolute;
   }
 
+  @keyframes glowDark {
+    from {
+      box-shadow: 0 20px 25px #5c5e5c5c;
+    }
+    to {
+      box-shadow: 0 20px 50px #5c5e5c5c;
+    }
+  }
+
+  .glowing-dark {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    animation: glowDark 1.5s ease-in-out infinite alternate;
+  }
+
+  @keyframes glowLight {
+    from {
+      box-shadow: 0 20px 25px #f8f9bb72;
+    }
+    to {
+      box-shadow: 0 20px 50px #f8f9bb72;
+    }
+  }
+
+  .glowing {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    animation: glowLight 1.5s ease-in-out infinite alternate;
+  }
+
   @keyframes fly {
     100% {
       height: 150px;
