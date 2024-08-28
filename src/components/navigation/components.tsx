@@ -2,11 +2,12 @@
 
 import { NavLink } from '@/components/link';
 import { links } from '@/config/common';
+import Cookies from 'js-cookie';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import Cookies from 'js-cookie';
 
+import type { Theme } from '@/types/common';
 import {
   MdBrightnessAuto,
   MdMenu,
@@ -14,7 +15,6 @@ import {
   MdNightlight,
   MdSunny,
 } from 'react-icons/md';
-import type { Theme } from '@/types/common';
 
 const styles = {
   active: `!text-primary dark:brightness-125`,
@@ -31,10 +31,13 @@ function NavigationLinks({ defaultTheme }: { defaultTheme: Theme }) {
         return (
           <NavLink
             key={index}
+            target={link.href?.includes('http') ? '_blank' : undefined}
             activeClassName={styles.active}
             className={`${styles.base} px-6 py-4 md:py-3 relative`}
             href={link.href ?? '/'}
-            title={`${link.name} page`}
+            title={
+              link.name === 'Connect' ? 'LinkedIn page' : `${link.name} page`
+            }
           >
             <div className="h-full w-0 transition-[width] max-md:group-hover:w-full bg-[#d8dfd6] dark:bg-[#474533] absolute top-0 left-0"></div>
             <div className="h-full w-0 transition-[width] duration-700 max-md:group-hover:w-3/4 border-b-4 absolute top-0 left-0"></div>

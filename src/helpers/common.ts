@@ -40,4 +40,4 @@ function isMobileBrowser() {
   );
 }
 
-export { capitalize, formatDate, isMobileBrowser, generateFallbackImage };
+export { capitalize, formatDate, generateFallbackImage, isMobileBrowser };
