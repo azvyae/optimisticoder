@@ -39,7 +39,7 @@ function Hero() {
             className="text-3xl sm:text-4xl sm:text-nowrap md:text-6xl xl:text-7xl font-extrabold !leading-relaxed"
           >
             It&apos;s your code,
-            <br /> be optimist
+            <br /> be an optimist
             <span className="animate-blinking transition-none select-none">
               |
             </span>

@@ -8,7 +8,7 @@ describe('Checking home page', () => {
     it('has main heading', () => {
       cy.getItem('hero-section')
         .find('h1')
-        .contains("It's your code, be optimist");
+        .contains("It's your code, be an optimist");
     });
     it('has subtitle', () => {
       cy.getItem('hero-section')

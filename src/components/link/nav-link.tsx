@@ -2,17 +2,24 @@
 
 import Link, { type LinkProps } from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState, type PropsWithChildren } from 'react';
+import {
+  useEffect,
+  useState,
+  type HTMLAttributeAnchorTarget,
+  type PropsWithChildren,
+} from 'react';
 type NavLinkProps = LinkProps & {
   className?: string;
   activeClassName: string;
   title?: string;
+  target?: HTMLAttributeAnchorTarget;
 };
 function NavLink({
   children,
   activeClassName,
   className,
   title,
+  target,
   ...props
 }: PropsWithChildren<NavLinkProps>) {
   const pathname = usePathname();
@@ -42,7 +49,12 @@ function NavLink({
   ]);
 
   return (
-    <Link title={title} className={computedClassName} {...props}>
+    <Link
+      target={target}
+      title={title}
+      className={computedClassName}
+      {...props}
+    >
       {children}
     </Link>
   );

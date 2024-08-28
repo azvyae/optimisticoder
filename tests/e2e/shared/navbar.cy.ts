@@ -13,12 +13,8 @@ describe('Checking navbar', () => {
       href: '/stories',
     },
     {
-      name: 'Portfolio',
-      href: '/portfolio',
-    },
-    {
-      name: 'Contact',
-      href: '/contact',
+      name: 'Connect',
+      href: 'https://www.linkedin.com/in/azvyae',
     },
   ];
 

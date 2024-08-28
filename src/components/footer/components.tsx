@@ -18,7 +18,10 @@ function MainLinks() {
             key={index}
             className={`${styles.base} py-1 relative`}
             href={link.href ?? '/'}
-            title={`${link.name} page`}
+            title={
+              link.name === 'Connect' ? 'LinkedIn page' : `${link.name} page`
+            }
+            target={link.href?.includes('http') ? '_blank' : undefined}
           >
             <div className="flex relative items-center gap-2">
               {Icon ? <Icon size={18} /> : <></>}
