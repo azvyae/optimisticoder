@@ -35,6 +35,13 @@ export const metadata: Metadata = {
   description:
     "Welcome to Optimisticoder, it's your code, be an optimist! Find new insights, tips, or other case studies related to programming and tech here.",
   keywords: 'blog, portfolio, programming, code, azvya, erstevan',
+  twitter: {
+    title: "It's your own code | Optimisticoder",
+    site: 'https://optimisticoder.com',
+    description:
+      "Welcome to Optimisticoder, it's your code, be an optimist! Find new insights, tips, or other case studies related to programming and tech here.",
+    images: ['/static/opengraph/optimisticoder-dark.jpg'],
+  },
   openGraph: {
     title: "It's your own code | Optimisticoder",
     url: 'https://optimisticoder.com',

@@ -79,7 +79,14 @@ export async function generateMetadata(
     description: story.subtitle,
     keywords: story.keywords,
     authors: [{ name: 'Azvya Erstevan', url: 'https://optimisticoder.com' }],
+    twitter: {
+      title: story.title,
+      description: story.subtitle,
+      images: [story.cover, ...previousImages],
+    },
     openGraph: {
+      title: story.title,
+      description: story.subtitle,
       images: [story.cover, ...previousImages],
     },
   };

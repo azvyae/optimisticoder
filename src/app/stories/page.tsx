@@ -30,6 +30,12 @@ export async function generateMetadata(
         : 'Stories',
     description:
       "Explore newest stories from us. Welcome to Optimisticoder, it's your code, be optimist!",
+    twitter: {
+      description:
+        "Explore newest stories from us. Welcome to Optimisticoder, it's your code, be optimist!",
+      title: 'Stories | Optimisticoder',
+      images: [...previousImages],
+    },
     openGraph: {
       description:
         "Explore newest stories from us. Welcome to Optimisticoder, it's your code, be optimist!",
