@@ -7,7 +7,7 @@ import type { StoriesIndexEntry } from '@/types/common';
 import { readFileSync } from 'fs';
 import matter from 'gray-matter';
 import jsonata from 'jsonata';
-import type { Metadata, ResolvingMetadata } from 'next';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import path from 'path';
@@ -66,13 +66,8 @@ async function listRandomStories() {
   }
 }
 
-export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata,
-): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const story = await getStoryBySlug(params.slug);
-
-  const previousImages = (await parent).openGraph?.images || [];
 
   return {
     title: story.title,
@@ -82,12 +77,12 @@ export async function generateMetadata(
     twitter: {
       title: story.title,
       description: story.subtitle,
-      images: [story.cover, ...previousImages],
+      images: story.cover,
     },
     openGraph: {
       title: story.title,
       description: story.subtitle,
-      images: [story.cover, ...previousImages],
+      images: story.cover,
     },
   };
 }
