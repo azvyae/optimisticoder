@@ -1,3 +1,26 @@
+async function sfetch(
+  input: RequestInfo | URL,
+  init?: (RequestInit & { timeout?: number }) | undefined,
+) {
+  const timeout = init?.timeout;
+  delete init?.timeout;
+  const additionalHeaders: RequestInit['headers'] = {
+    'Accept-Language': 'en',
+  };
+  const controller = new AbortController();
+  setTimeout(() => controller.abort(), timeout);
+  init = {
+    ...init,
+    headers: {
+      ...additionalHeaders,
+      ...init?.headers,
+    },
+    signal: timeout && timeout > 0 ? controller.signal : null,
+  };
+  const fetcher = await fetch(input, init);
+  return fetcher;
+}
+
 function capitalize(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
@@ -40,4 +63,10 @@ function isMobileBrowser() {
   );
 }
 
-export { capitalize, formatDate, generateFallbackImage, isMobileBrowser };
+export {
+  capitalize,
+  formatDate,
+  generateFallbackImage,
+  isMobileBrowser,
+  sfetch,
+};

@@ -1,10 +1,11 @@
 export const revalidate = 604800;
 import { Breadcrumbs, MarkdownUI, StoryTitle } from '@/components/common';
-import { readFileSync } from 'fs';
+import { STORIES_URL } from '@/config/common';
+import { sfetch } from '@/helpers/common';
+import type { PlainTextResponse } from '@/types/responses';
 import matter from 'gray-matter';
 import type { Metadata, ResolvingMetadata } from 'next';
 import { notFound } from 'next/navigation';
-import path from 'path';
 import { cache } from 'react';
 
 type Props = {
@@ -13,23 +14,27 @@ type Props = {
 
 const getPrivacyPolicy = cache(async () => {
   try {
-    const { content: markdown, data } = matter(
-      readFileSync(
-        path.join(process.cwd(), './src', 'markdowns', 'privacy-policy.md'),
-        'utf8',
-      ),
-    );
+    const res = (await sfetch(`${STORIES_URL}/docs/privacy-policy.md`, {
+      next: {
+        revalidate: 604800,
+      },
+    })) as PlainTextResponse;
+    if (!res.ok) {
+      throw new Error((await res.json()).message);
+    }
+
+    const { content: markdown, data } = matter(await res.text());
     return {
       content: markdown.toString(),
       title: data.title,
       subtitle: `Updated ${new Date(data.date).toLocaleDateString('en-US', {
         year: 'numeric',
-        month: 'short',
+        month: 'long',
         day: 'numeric',
       })}.`,
     };
   } catch (error) {
-    notFound();
+    return notFound();
   }
 });
 
