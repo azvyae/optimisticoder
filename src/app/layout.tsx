@@ -23,6 +23,7 @@ import './globals.css';
 import { Footer } from '@/components/footer/footer';
 import type { Theme } from '@/types/common';
 import { cookies } from 'next/headers';
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -66,6 +67,11 @@ export default function Root({ children }: { children: React.ReactNode }) {
         <ClientProvider />
         <Analytics />
         <SpeedInsights />
+        <Script
+          src="https://autoback.link/autobacklink.js?ref=optimisticoder.com"
+          defer
+          async
+        />
       </body>
     </html>
   );
