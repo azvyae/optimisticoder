@@ -37,7 +37,7 @@ const checkMeta = cache(async function checkMeta() {
 
 async function listStories(
   page = 1,
-  key?: 'category' | 'search',
+  key?: 'category' | 'search' | 'date',
   value?: string,
 ) {
   try {
@@ -55,13 +55,14 @@ async function listStories(
     });
     const meta = await checkMeta();
     let query = `$[]`;
-    switch (key) {
-      case 'category':
-        query = `$[category="${value}"][]`;
-        break;
-      case 'search':
-        query = `$[$contains(title,/${value}/i) or keywords[$contains($,/${value}/i)]][]`;
-        break;
+    if (key === 'category') {
+      query = `$[category="${value}"][]`;
+    } else if (key === 'search') {
+      query = `$[$contains(title,/${value}/i) or keywords[$contains($,/${value}/i)]][]`;
+    } else if (key === 'date') {
+      const timezoneOffsetMillis =
+        new Date().getTimezoneOffset() * 60 * 1000 * -1;
+      query = `$[$contains($fromMillis($toMillis(date)+${timezoneOffsetMillis}),"${value}")][]`;
     }
     const expression = jsonata(query);
     const result: StoriesIndexEntry[] = await expression.evaluate(indexStories);
@@ -196,13 +197,22 @@ async function StoriesSection({
   page,
   category,
   search,
+  date,
 }: {
   page: number;
   category?: string;
   search?: string;
+  date?: string;
 }) {
-  const key = category ? 'category' : search ? 'search' : undefined;
-  const value = category ? category : search ? search : undefined;
+  const key = category
+    ? 'category'
+    : search
+      ? 'search'
+      : date
+        ? 'date'
+        : undefined;
+
+  const value = category ? category : search ? search : date ? date : undefined;
   const stories = await listStories(page, key, value);
 
   if (page > stories.maxPage) {

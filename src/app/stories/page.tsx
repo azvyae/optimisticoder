@@ -13,6 +13,7 @@ interface StoriesPageParams {
     page?: string;
     category?: string;
     search?: string;
+    date?: string;
   };
 }
 
@@ -65,6 +66,7 @@ async function Page({ searchParams }: StoriesPageParams) {
         page={Number.isNaN(page) ? 1 : page}
         category={searchParams.category}
         search={searchParams.search}
+        date={searchParams.date}
       />
     </main>
   );
