@@ -1,24 +1,29 @@
 import { FilteringHandler } from '@/app/stories/components';
 import { StoryCard } from '@/components/common/story-card';
-import { STORIES_DIR } from '@/config/common';
+import { STORIES_URL } from '@/config/common';
+import { sfetch } from '@/helpers/common';
 import type { StoriesIndexEntry, StoriesMeta } from '@/types/common';
+import type { CommonResponse } from '@/types/responses';
 import Stars from '@public/static/svg/stars.svg';
-import { readFileSync } from 'fs';
 import jsonata from 'jsonata';
 import Image from 'next/image';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import path from 'path';
 import { cache } from 'react';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 const checkMeta = cache(async function checkMeta() {
   try {
-    const indexMeta: StoriesMeta = JSON.parse(
-      readFileSync(
-        path.join(process.cwd(), STORIES_DIR, 'index-meta.json'),
-      ).toString(),
-    );
+    const res = (await sfetch(`${STORIES_URL}/stories/meta.json`, {
+      next: {
+        revalidate: 86400,
+        tags: ['meta'],
+      },
+    })) as CommonResponse<StoriesMeta>;
+    if (!res.ok) {
+      throw new Error((await res.json()).message);
+    }
+    const indexMeta = await res.json();
     const expression = jsonata(`$[]`);
     const result: StoriesMeta = await expression.evaluate(indexMeta);
     return result;
@@ -36,11 +41,18 @@ async function listStories(
   value?: string,
 ) {
   try {
-    const indexStories: StoriesIndexEntry[] = JSON.parse(
-      readFileSync(
-        path.join(process.cwd(), STORIES_DIR, 'index-stories.json'),
-      ).toString(),
-    );
+    const res = (await sfetch(`${STORIES_URL}/stories/stories.json`, {
+      next: {
+        revalidate: 86400,
+        tags: ['stories'],
+      },
+    })) as CommonResponse<StoriesIndexEntry[]>;
+    if (!res.ok) {
+      throw new Error((await res.json()).message);
+    }
+    const indexStories = (await res.json()).map((story) => {
+      return { ...story, cover: `${STORIES_URL}/stories/${story.cover}` };
+    });
     const meta = await checkMeta();
     let query = `$[]`;
     switch (key) {

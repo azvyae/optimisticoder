@@ -14,16 +14,19 @@ function StoryCard({ story, className }: StoryCardProps) {
       href={`/stories/${story.slug}`}
       title={`Read ${story.title}`}
       data-item="story-card"
-      className={`border-[#909090] border bg-light dark:bg-[#1f201f] dark:border-[#5d5d5d] w-full rounded-lg overflow-hidden group flex justify-between flex-col ${className}`}
+      className={`border-[#909090] border group bg-light dark:bg-[#1f201f] dark:border-[#5d5d5d] w-full rounded-lg overflow-hidden group flex justify-between flex-col ${className}`}
     >
-      <FallbackImage
-        src={story.cover}
-        width={512}
-        height={512}
-        alt={`Thumbnail of ${story.title}`}
-        className="aspect-square object-cover h-full w-full"
-        fallback={generateFallbackImage(story.title)}
-      />
+      <div className="h-full w-full overflow-hidden">
+        <FallbackImage
+          src={story.cover}
+          width={512}
+          height={512}
+          alt={`Thumbnail of ${story.title}`}
+          className="aspect-square object-cover h-full w-full group-hover:scale-105 duration-500 transition-transform"
+          fallback={generateFallbackImage(story.title)}
+        />
+      </div>
+
       <hr className="text-[#909090] dark:text-[#5d5d5d]" />
       <div className="p-6 group-hover:dark:bg-[#1f1f1f] group-hover:bg-[#ececec] grid gap-4">
         <p className="text-sm sm:text-base truncate line-clamp-1">

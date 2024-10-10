@@ -163,10 +163,14 @@ function MostHighlightedStory({ story }: { story?: StoriesIndexEntry }) {
       className="px-8 md:px-32 py-16"
     >
       <div className="border-[#909090] border shadow-primary glowing relative bg-light dark:glowing-dark dark:bg-[#1f201f] dark:border-[#5d5d5d] rounded-lg overflow-hidden gap-4 grid lg:grid-cols-2">
-        <Link href={`/stories/${story.slug}`} title={`Read ${story.title}`}>
+        <Link
+          href={`/stories/${story.slug}`}
+          className="aspect-[4/3] overflow-hidden border-[#909090] lg:border-r border-b dark:border-[#5d5d5d]"
+          title={`Read ${story.title}`}
+        >
           <FallbackImage
             src={story.cover}
-            className="w-full h-full object-cover aspect-[4/3] border-[#909090] lg:border-r border-b dark:border-[#5d5d5d]"
+            className="w-full hover:scale-105 transition-transform duration-500 h-full object-cover aspect-[4/3]"
             alt={`Thumbnail of ${story.title}`}
             width={512}
             height={256}

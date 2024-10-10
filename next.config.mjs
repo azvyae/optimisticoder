@@ -10,6 +10,8 @@ const nextConfig = {
       { hostname: 'lh3.googleusercontent.com' },
       { hostname: '*.optimisticoder.com' },
       { hostname: 'api.dicebear.com' },
+      { hostname: 'raw.githubusercontent.com' },
+      { hostname: 'github.com' },
     ],
   },
 };
