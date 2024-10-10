@@ -55,18 +55,14 @@ async function listStories(
     });
     const meta = await checkMeta();
     let query = `$[]`;
-    switch (key) {
-      case 'category':
-        query = `$[category="${value}"][]`;
-        break;
-      case 'search':
-        query = `$[$contains(title,/${value}/i) or keywords[$contains($,/${value}/i)]][]`;
-        break;
-      case 'date':
-        const timezoneOffsetMillis =
-          new Date().getTimezoneOffset() * 60 * 1000 * -1;
-        query = `$[$contains($fromMillis($toMillis(date)+${timezoneOffsetMillis}),"${value}")][]`;
-        break;
+    if (key === 'category') {
+      query = `$[category="${value}"][]`;
+    } else if (key === 'search') {
+      query = `$[$contains(title,/${value}/i) or keywords[$contains($,/${value}/i)]][]`;
+    } else if (key === 'date') {
+      const timezoneOffsetMillis =
+        new Date().getTimezoneOffset() * 60 * 1000 * -1;
+      query = `$[$contains($fromMillis($toMillis(date)+${timezoneOffsetMillis}),"${value}")][]`;
     }
     const expression = jsonata(query);
     const result: StoriesIndexEntry[] = await expression.evaluate(indexStories);
