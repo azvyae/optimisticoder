@@ -1,7 +1,7 @@
 'use client';
 
 import { NavLink } from '@/components/link';
-import { links } from '@/config/common';
+import { APP_ENV, links } from '@/config/common';
 import Cookies from 'js-cookie';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -130,10 +130,16 @@ function DarkModeSelector({
     if (!defaultTheme) {
       if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
         document.documentElement.classList.add('dark');
-        Cookies.set('theme', 'dark');
+        Cookies.set('theme', 'dark', {
+          expires: 365,
+          secure: APP_ENV === 'production',
+        });
       } else {
         document.documentElement.classList.remove('dark');
-        Cookies.set('theme', 'light');
+        Cookies.set('theme', 'light', {
+          expires: 365,
+          secure: APP_ENV === 'production',
+        });
       }
     }
     setTheme(Cookies.get('theme') as Theme);
@@ -144,7 +150,10 @@ function DarkModeSelector({
       switch (t) {
         case 'dark':
           document.documentElement.classList.remove('dark');
-          Cookies.set('theme', 'light');
+          Cookies.set('theme', 'light', {
+            expires: 365,
+            secure: APP_ENV === 'production',
+          });
           return 'light';
         case 'light':
           if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -156,7 +165,10 @@ function DarkModeSelector({
           return;
         default:
           document.documentElement.classList.add('dark');
-          Cookies.set('theme', 'dark');
+          Cookies.set('theme', 'dark', {
+            expires: 365,
+            secure: APP_ENV === 'production',
+          });
           return 'dark';
       }
     });
