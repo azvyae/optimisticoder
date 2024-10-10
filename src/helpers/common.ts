@@ -48,6 +48,30 @@ function generateFallbackImage(initials: string) {
   return `/static/fallback/${randomNum}.jpg`;
 }
 
+function timezoneOffset(ianaTimeZone: string) {
+  const now = new Date();
+  now.setSeconds(0, 0);
+
+  // Format current time in `ianaTimeZone` as `M/DD/YYYY, HH:MM:SS`:
+  const tzDateString = now.toLocaleString('en-US', {
+    timeZone: ianaTimeZone,
+    hourCycle: 'h23',
+  });
+
+  // Parse formatted date string:
+  const match = /(\d+)\/(\d+)\/(\d+), (\d+):(\d+)/.exec(tzDateString);
+  if (!match) {
+    return 25200000;
+  }
+  const [, month, day, year, hour, min] = match.map(Number);
+
+  // Change date string's time zone to UTC and get timestamp:
+  const tzTime = Date.UTC(year, month - 1, day, hour, min);
+
+  // Return the offset between UTC and target time zone:
+  return Math.floor(tzTime - now.getTime());
+}
+
 function isMobileBrowser() {
   if (!window) {
     return false;
@@ -69,4 +93,5 @@ export {
   generateFallbackImage,
   isMobileBrowser,
   sfetch,
+  timezoneOffset,
 };

@@ -1,6 +1,9 @@
 'use client';
 
+import Cookies from 'js-cookie';
 import { AppProgressBar as ProgressBar } from 'next-nprogress-bar';
+import { usePathname } from 'next/navigation';
+import { useEffect } from 'react';
 
 const nprogressStyle = `
 #nprogress {
@@ -45,6 +48,15 @@ const nprogressStyle = `
 }
 `;
 function ClientProvider() {
+  const pathname = usePathname();
+  useEffect(() => {
+    const tz = Cookies.get('tz');
+    if (!tz) {
+      Cookies.set('tz', Intl.DateTimeFormat().resolvedOptions().timeZone, {
+        expires: 1,
+      });
+    }
+  }, [pathname]);
   return (
     <>
       <ProgressBar

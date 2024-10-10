@@ -1,11 +1,12 @@
 import { FilteringHandler } from '@/app/stories/components';
 import { StoryCard } from '@/components/common/story-card';
 import { STORIES_URL } from '@/config/common';
-import { sfetch } from '@/helpers/common';
+import { sfetch, timezoneOffset } from '@/helpers/common';
 import type { StoriesIndexEntry, StoriesMeta } from '@/types/common';
 import type { CommonResponse } from '@/types/responses';
 import Stars from '@public/static/svg/stars.svg';
 import jsonata from 'jsonata';
+import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
@@ -60,9 +61,9 @@ async function listStories(
     } else if (key === 'search') {
       query = `$[$contains(title,/${value}/i) or keywords[$contains($,/${value}/i)]][]`;
     } else if (key === 'date') {
-      const timezoneOffsetMillis =
-        new Date().getTimezoneOffset() * 60 * 1000 * -1;
-      query = `$[$contains($fromMillis($toMillis(date)+${timezoneOffsetMillis}),"${value}")][]`;
+      const tz = cookies().get('tz')?.value ?? 'Asia/Jakarta';
+      const timezoneOffsetMillis = timezoneOffset(tz);
+      query = `$[$contains($fromMillis($toMillis(date)${timezoneOffsetMillis >= 0 ? '+' : ''}${timezoneOffsetMillis}),"${value}")][]`;
     }
     const expression = jsonata(query);
     const result: StoriesIndexEntry[] = await expression.evaluate(indexStories);
