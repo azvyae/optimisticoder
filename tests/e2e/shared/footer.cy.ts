@@ -26,6 +26,12 @@ describe('Checking footer', () => {
     {
       href: 'https://www.tiktok.com/@azvyae',
     },
+    {
+      href: 'https://www.threads.net/@azvyae',
+    },
+    {
+      href: 'https://www.github.com/azvyae',
+    },
   ];
   const additionalLinks = [
     {
