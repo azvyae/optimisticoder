@@ -27,9 +27,9 @@ function AutoBacklinks() {
       .map((_, i) => (
         <div
           key={i}
-          className={`w-fit flex gap-2 whitespace-nowrap items-center font-medium transition-colors rounded text-[#5a685d] dark:text-light py-1 relative`}
+          className={`w-fit flex gap-1 whitespace-nowrap items-center font-medium transition-colors rounded text-[#5a685d] dark:text-light py-1 relative`}
         >
-          <div className="flex relative items-center h-full gap-2">
+          <div className="flex relative items-center h-full gap-1">
             <span
               style={{
                 width: 64 + (i % 2 === 0 ? i : i * 16),
@@ -49,10 +49,10 @@ function AutoBacklinks() {
       href={item.url}
       target="_blank"
       rel="noopener noreferrer"
-      className={`w-fit flex gap-2 whitespace-nowrap font-medium transition-colors rounded group text-[#5a685d] dark:text-light py-1 relative`}
+      className={`w-fit flex gap-1 whitespace-nowrap font-medium transition-colors rounded group text-[#5a685d] dark:text-light py-1 relative`}
       title={`Visit ${item.label}`}
     >
-      <div className="flex relative items-center gap-2">
+      <div className="flex relative items-center gap-1">
         {item.label}
         <span className="border-b-2 group-hover:w-full w-0 transition-[width] absolute bottom-0"></span>
       </div>

@@ -21,7 +21,9 @@ function Footer() {
           className="justify-center flex-col items-start text-base flex"
         >
           <h6 className="font-extrabold text-lg mb-2">Links</h6>
-          <MainLinks />
+          <div className="grid gap-1">
+            <MainLinks />
+          </div>
         </div>
         <div
           data-item="social-links"
@@ -37,7 +39,7 @@ function Footer() {
           <h6 className="font-extrabold text-lg mb-2 flex gap-2 items-center">
             Check Also <HiExternalLink />
           </h6>
-          <div className="flex-wrap gap-2 items-start text-base flex">
+          <div className="flex-wrap gap-1 items-start text-base flex">
             <AutoBacklinks />
           </div>
         </div>

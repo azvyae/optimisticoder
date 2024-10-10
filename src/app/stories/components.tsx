@@ -255,7 +255,11 @@ function FilteringHandler({
         data-item="search-button"
         onClick={() => {
           setShowSearch((cur) => {
-            input.current?.focus();
+            if (!cur) {
+              input.current?.focus();
+            } else {
+              input.current?.blur();
+            }
             if (cur && !input.current?.value && search) {
               router.push('/stories');
               router.refresh();
