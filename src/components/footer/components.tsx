@@ -105,7 +105,7 @@ function SocialMediaLinks() {
       {item.icon}
     </Link>
   ));
-  return <div className="flex gap-4">{items}</div>;
+  return <div className="flex gap-4 flex-wrap justify-around">{items}</div>;
 }
 
 export { MainLinks, SocialMediaLinks };
