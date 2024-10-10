@@ -1,5 +1,6 @@
 'use client';
 
+import { APP_ENV } from '@/config/common';
 import Cookies from 'js-cookie';
 import { AppProgressBar as ProgressBar } from 'next-nprogress-bar';
 import { usePathname } from 'next/navigation';
@@ -54,6 +55,7 @@ function ClientProvider() {
     if (!tz) {
       Cookies.set('tz', Intl.DateTimeFormat().resolvedOptions().timeZone, {
         expires: 1,
+        secure: APP_ENV === 'production',
       });
     }
   }, [pathname]);
