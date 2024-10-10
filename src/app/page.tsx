@@ -4,19 +4,26 @@ import {
   LatestStories,
   MostHighlightedStory,
 } from '@/app/components';
-import { STORIES_DIR } from '@/config/common';
+import { STORIES_URL } from '@/config/common';
+import { sfetch } from '@/helpers/common';
 import type { StoriesIndexEntry } from '@/types/common';
-import { readFileSync } from 'fs';
+import type { CommonResponse } from '@/types/responses';
 import jsonata from 'jsonata';
-import path from 'path';
 
 async function listFiveLatestStories() {
   try {
-    const indexStories: StoriesIndexEntry[] = JSON.parse(
-      readFileSync(
-        path.join(process.cwd(), STORIES_DIR, 'index-stories.json'),
-      ).toString(),
-    );
+    const res = (await sfetch(`${STORIES_URL}/stories/stories.json`, {
+      next: {
+        revalidate: 86400,
+        tags: ['stories'],
+      },
+    })) as CommonResponse<StoriesIndexEntry[]>;
+    if (!res.ok) {
+      throw new Error((await res.json()).message);
+    }
+    const indexStories = (await res.json()).map((story) => {
+      return { ...story, cover: `${STORIES_URL}/stories/${story.cover}` };
+    });
     const expression = jsonata(`$[]`);
     const result: StoriesIndexEntry[] = await expression.evaluate(indexStories);
     return result.slice(0, 5);

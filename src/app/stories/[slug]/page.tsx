@@ -2,47 +2,63 @@ export const revalidate = 86400;
 import { ShareButtons, WriterDisplay } from '@/app/stories/[slug]/components';
 import { Breadcrumbs, MarkdownUI, StoryTitle } from '@/components/common';
 import { StoryCard } from '@/components/common/story-card';
-import { APP_URL, STORIES_DIR } from '@/config/common';
+import { APP_URL, STORIES_URL } from '@/config/common';
+import { sfetch } from '@/helpers/common';
 import type { StoriesIndexEntry } from '@/types/common';
-import { readFileSync } from 'fs';
+import type { CommonResponse, PlainTextResponse } from '@/types/responses';
 import matter from 'gray-matter';
 import jsonata from 'jsonata';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import path from 'path';
 import { cache } from 'react';
 
 type Props = {
   params: { slug: string };
 };
 
+const listStories = cache(async (): Promise<StoriesIndexEntry[]> => {
+  try {
+    const res = (await sfetch(`${STORIES_URL}/stories/stories.json`, {
+      next: {
+        revalidate: 86400,
+        tags: ['stories'],
+      },
+    })) as CommonResponse<StoriesIndexEntry[]>;
+    if (!res.ok) {
+      throw new Error((await res.json()).message);
+    }
+    return (await res.json()).map((story) => {
+      return { ...story, cover: `${STORIES_URL}/stories/${story.cover}` };
+    });
+  } catch (error) {
+    return [];
+  }
+});
+
 const getStoryBySlug = cache(async (slug: string) => {
   try {
-    const indexStories: StoriesIndexEntry[] = JSON.parse(
-      readFileSync(
-        path.join(process.cwd(), STORIES_DIR, 'index-stories.json'),
-      ).toString(),
-    );
+    const indexStories = await listStories();
     const expression = jsonata(`$[slug='${slug}']`);
     const result: StoriesIndexEntry = await expression.evaluate(indexStories);
-    const { content: markdown } = matter(
-      readFileSync(
-        path.join(
-          process.cwd(),
-          STORIES_DIR,
-          result.category,
-          result.slug,
-          'page.md',
-        ),
-        'utf8',
-      ),
-    );
+    const res = (await sfetch(
+      `${STORIES_URL}/stories/${result.category}/${result.slug}/page.md`,
+      {
+        next: {
+          revalidate: 86400,
+        },
+      },
+    )) as PlainTextResponse;
+    if (!res.ok) {
+      throw new Error((await res.json()).message);
+    }
+    const { content: markdown } = matter(await res.text());
+
     return {
       content: markdown
         .toString()
-        .replace(/!\[([^\]]*)\]\((?!\/assets\/)([^)]+)\)/g, (_, p1, p2) => {
-          return `![${p1}](/assets/${result.category}/${result.slug}/${p2})`;
+        .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, p1, p2) => {
+          return `![${p1}](${STORIES_URL}/stories/${result.category}/${result.slug}/${p2})`;
         }),
       ...result,
     };
@@ -53,11 +69,7 @@ const getStoryBySlug = cache(async (slug: string) => {
 
 async function listRandomStories() {
   try {
-    const indexStories: StoriesIndexEntry[] = JSON.parse(
-      readFileSync(
-        path.join(process.cwd(), STORIES_DIR, 'index-stories.json'),
-      ).toString(),
-    );
+    const indexStories: StoriesIndexEntry[] = await listStories();
     const expression = jsonata(`$shuffle($[])`);
     const result: StoriesIndexEntry[] = await expression.evaluate(indexStories);
     return result.slice(0, 4);
