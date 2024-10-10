@@ -1,7 +1,8 @@
 import { links } from '@/config/common';
 import Link from 'next/link';
+import { FiGithub } from 'react-icons/fi';
 import { IoLogoInstagram, IoLogoLinkedin } from 'react-icons/io5';
-import { RiTwitterXLine, RiTiktokFill } from 'react-icons/ri';
+import { RiTwitterXLine, RiTiktokFill, RiThreadsFill } from 'react-icons/ri';
 const styles = {
   base: `w-fit whitespace-nowrap font-medium transition-colors rounded group text-[#5a685d] dark:text-light`,
   activeDarkToggler: `scale-100 group-hover:text-[#7e7e7e] rotate-0`,
@@ -41,7 +42,7 @@ const socialMedia = [
     url: 'https://instagram.com/azvyae',
     icon: (
       <IoLogoInstagram
-        className="hover:text-[#764673] dark:hover:text-[#af6cab] text-[#696969] dark:text-[#9e9e9e] transition-colors"
+        className="hover:text-[#E4B1F0] dark:hover:text-[#8f74cb] text-[#696969] dark:text-[#9e9e9e] transition-colors"
         size={24}
       />
     ),
@@ -61,7 +62,7 @@ const socialMedia = [
     url: 'https://www.linkedin.com/in/azvyae',
     icon: (
       <IoLogoLinkedin
-        className="hover:text-[#3d6394] dark:hover:text-[#5684c0] text-[#696969] dark:text-[#9e9e9e] transition-colors"
+        className="hover:text-[#4a7cbc] dark:hover:text-[#5684c0] text-[#696969] dark:text-[#9e9e9e] transition-colors"
         size={24}
       />
     ),
@@ -71,7 +72,27 @@ const socialMedia = [
     url: 'https://www.tiktok.com/@azvyae',
     icon: (
       <RiTiktokFill
-        className="hover:text-[#000000] dark:hover:text-[#fff] text-[#696969] dark:text-[#9e9e9e] transition-colors"
+        className="hover:text-[#D91656] dark:hover:text-[#fc5d92] text-[#696969] dark:text-[#9e9e9e] transition-colors"
+        size={24}
+      />
+    ),
+  },
+  {
+    name: 'Azvya on Threads',
+    url: 'https://www.threads.net/@azvyae',
+    icon: (
+      <RiThreadsFill
+        className="hover:text-[#d78f36] dark:hover:text-[#ffb65e] text-[#696969] dark:text-[#9e9e9e] transition-colors"
+        size={24}
+      />
+    ),
+  },
+  {
+    name: 'Azvya on GitHub',
+    url: 'https://www.github.com/azvyae',
+    icon: (
+      <FiGithub
+        className="hover:text-[#81c53d] dark:hover:text-[#8FD14F] text-[#696969] dark:text-[#9e9e9e] transition-colors"
         size={24}
       />
     ),
