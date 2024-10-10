@@ -37,7 +37,7 @@ const checkMeta = cache(async function checkMeta() {
 
 async function listStories(
   page = 1,
-  key?: 'category' | 'search',
+  key?: 'category' | 'search' | 'date',
   value?: string,
 ) {
   try {
@@ -61,6 +61,11 @@ async function listStories(
         break;
       case 'search':
         query = `$[$contains(title,/${value}/i) or keywords[$contains($,/${value}/i)]][]`;
+        break;
+      case 'date':
+        const timezoneOffsetMillis =
+          new Date().getTimezoneOffset() * 60 * 1000 * -1;
+        query = `$[$contains($fromMillis($toMillis(date)+${timezoneOffsetMillis}),"${value}")][]`;
         break;
     }
     const expression = jsonata(query);
@@ -196,13 +201,22 @@ async function StoriesSection({
   page,
   category,
   search,
+  date,
 }: {
   page: number;
   category?: string;
   search?: string;
+  date?: string;
 }) {
-  const key = category ? 'category' : search ? 'search' : undefined;
-  const value = category ? category : search ? search : undefined;
+  const key = category
+    ? 'category'
+    : search
+      ? 'search'
+      : date
+        ? 'date'
+        : undefined;
+
+  const value = category ? category : search ? search : date ? date : undefined;
   const stories = await listStories(page, key, value);
 
   if (page > stories.maxPage) {
